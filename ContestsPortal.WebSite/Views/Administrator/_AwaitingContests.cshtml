@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ContestsPortal.Domain.Models.Contest>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>
+                <span>Наименование контеста</span>
+            </th>
+            <th>
+                <span>Дата и время начала</span>
+            </th>
+            <th>
+                <span>Количество задач</span>
+            </th>
+            <th>
+                <span>Дата и время завершения контеста</span>
+            </th>
+            <th>
+            
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdContestState)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContestTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContestBeginning)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TasksCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContestEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompetitorsCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdContestState)
+                </td>
+                <td>
+                    @Ajax.ActionLink("Подтвердить", "PassToRegisrationStage", "Administrator", new { contestId = item.ContestId }, new AjaxOptions() { })
+                    @Ajax.ActionLink("Удалить", "DeleteContest","Administrator", new { contestId = item.ContestId }, new AjaxOptions())
+                    @Ajax.ActionLink("Задачи", "ContestDetails","Administrator",new {contestId = item.ContestId},new AjaxOptions(){})
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+   <p>Контесты в состоянии ожидания отсутствуют.</p>
+}

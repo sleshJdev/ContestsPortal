@@ -1,0 +1,364 @@
+@charset "utf-8";
+/* --------------------------------------- */
+/* --------------- GENERAL --------------- */
+/* --------------------------------------- */
+
+body {
+	color: #000000;
+	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size : 10px ;
+	background : #FFFFFF;
+	visibility : visible;
+	margin: 0px;
+	padding: 0px;
+}
+
+.topPage {
+	margin: 0px;
+	padding: 0px;
+	background: url(headerBg.png) top left repeat-x black;
+	height: 60px;
+}
+
+.rightPage {
+	margin: 20px;
+
+}
+
+.leftPage {
+padding: 10px;
+
+}
+
+/* --------------------------------------- */
+/* -------------- CONTAINERS -------------- */
+/* --------------------------------------- */
+
+
+.mainContainer{
+	margin: 0px;
+	padding: 0px;
+}
+
+#header {
+    font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	height: 50px;
+	background: url(headerBg.png) top left repeat-x black;
+	z-index: 5;
+	margin: 10px;
+	
+}
+
+.title2  {
+	color: #fff;
+	font-size : 18px;
+	font-weight : bold;
+	margin: auto;
+	padding-left : 20px;
+	padding-right : 0px;
+	padding-top: 8px;
+	line-height : 31px;
+	display: block;
+	text-transform:capitalize;
+}
+
+.title1  {
+	display: none;
+}
+
+.titleimage{
+	display: none;
+}
+
+.headerEnd {
+	display: none;
+}
+
+.headerEnd p{
+	display: none;	
+}
+
+/* --------------------------------------- */
+/* ----------- TOP NAVIGATION------------- */
+/* --------------------------------------- */
+
+#navTop {
+
+	margin: 0px;
+	padding: 2px 5px 0px 5px;
+	right: 0px;
+	z-index: 4;
+	height: 37px;
+	overflow: auto;
+	background: url(mainMenuBg.png) top left repeat-x #242424;
+	border-bottom: 0px solid white;
+	vertical-align: baseline;
+}
+
+#navTop ul {
+	color:#666;
+	margin: 0;
+    padding: 0;
+	list-style-type: none;
+}
+
+#navTop ul li {
+	float: left;
+	margin: 2px 4px 0px 2px;
+	padding: 0px;
+	border-top: 1px solid #006600;
+	border-left: 1px solid #006600;
+	border-right: 1px solid #006600;
+	background: url(buttonBg.png);
+	height: 33px;
+	border-bottom: 1px solid #242424;
+}
+
+#navTop ul li a  {
+	display: block;
+	padding: 10px 8px;
+	display: block;
+    text-decoration: none;
+font-size: 11px;
+font-weight: bold;
+    color: #fff;
+	text-transform:capitalize;
+}
+
+#navTop ul li a:hover {
+	text-decoration: underline;
+}
+
+#navTop ul li a .selAnchor, .selAnchor {
+	display: block;
+	padding: 10px 10px;
+    float: left;
+    text-decoration: underline;
+    color: #fff;
+}
+
+#navTop ul .selLi{
+	background: #fff;
+	border-top: 1px solid #333333;
+	border-left: 1px solid #333;
+	border-right: 1px solid #333;
+	border-bottom: 1px solid #fff;
+ }
+ 
+#navTop ul .selLi .selAnchor{
+	text-decoration: underline;
+	background: #fff;
+	color: #000;
+	font-weight: bold;
+ }
+
+#navTopEnd {
+	display: block;
+	margin: 0px;
+	padding: 0px;
+}
+
+
+/* --------------------------------------- */
+/* -------------- LEFT FRAME ------------- */
+/* --------------------------------------- */
+
+#bookmark {
+	border-top: 1px solid #CDCA87;
+	border-left: 1px solid #CDCA87;
+	border-right: 1px solid #CDCA87;
+	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size : 8pt;
+	font-weight : normal;
+	text-align : left;
+	width : 100%;
+	visibility : visible;
+	margin: 0px;
+	padding: 0px;
+	background: #F3F3E3;
+}
+
+#bookmarkEnd {
+	display: none;
+}
+
+#bookmark ul {
+	list-style-type:none;
+	cursor: pointer;
+	border-top: 1px solid white;
+	border-left: 1px solid white;
+	border-right: 1px solid white;
+	margin: 0px;
+	padding: 0px;	
+	width: 100%;
+}
+
+#bookmark ul li {
+	margin: 0px;
+	list-style-type:none;
+	cursor: pointer;
+	color: black;
+	display: block;
+	border-top: 1px solid white;
+border-bottom: 1px solid #CDCA87;
+}
+
+#bookmark ul li a {
+	display: block;
+	visibility : visible;
+	cursor: pointer;
+	display : block;
+	padding: 4px 4px 4px 10px;
+	line-height: 12px;
+}
+
+#bookmark ul li a:link, #bookmark ul li a:visited {
+	list-style-type:none;
+	color: #000;
+	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size : 8pt;
+	font-weight : normal;
+	text-align : left;
+	text-decoration : none;
+	display: block;
+	visibility : visible;
+	cursor: pointer;
+}
+
+#bookmark ul li a:hover, #bookmark ul li:hover 
+	{
+	font-weight: bold;
+	color: black; 
+	background: #fff;
+	display: block;
+}
+
+#bookmark ul li a:active {
+}
+
+.bookmarkHeader {
+	font-weight: bold; 
+	color: black;
+	border-bottom: 1px solid #CDCA87;
+	cursor: text;
+ }
+
+#bookmark .spacer, #bookmark .spacer:hover{
+	height: 10px;
+	line-height: 10px;
+	padding-top: 10px;
+	background: #F3F3E3;
+	cursor: text;
+}
+
+.highlighted {
+	font-weight: bold; 
+	color: #fff; 
+	background: #000;
+	cursor: pointer; 
+	display:block 
+}
+
+.normal{
+	font-weight:  normal;
+}
+
+.separator  {
+	height: 100px;
+	margin: 0px;
+	padding: 0px;
+	position: absolute;
+	clear: both;
+}
+
+/* --------------------------------------- */
+/* -------------- CONTENT ------------- */
+/* --------------------------------------- */
+
+
+
+.caption1 {
+	color: #000;
+	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	margin: 0px 0px;
+	padding-left: 0px;
+	line-height: 22px;
+border: 1px solid #CDCA87;
+}
+
+.caption1 p {
+	margin: 1px;
+	padding: 4px 10px;
+	display: block;
+	font-size : 12pt;
+	font-weight: bold;
+background: url(headerBg.png) left center repeat-x;
+border-bottom: 1px solid #CDCA87;
+color: white;
+	
+}
+
+.caption2 {
+	color: #B20000;
+	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size : 11px;
+	font-weight : bold;
+	margin-left : 0px;
+	margin-right : 0px;
+	padding-left : 0px;
+	padding-right : 0px;
+	visibility : visible;
+border: 1px solid #CDCA87;
+}
+
+.caption2 p {
+	margin: 1px;
+	padding: 4px 10px;
+	background: url(buttonBg.png) left center repeat-x #6FA9EA;
+	color: white;
+
+
+}
+
+.tabformat {
+width: 100%;
+border: 1px solid #ccc;
+
+}
+
+.tabhead {
+	color: #000;
+	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size : 8pt;
+	font-weight : normal;
+	text-align : left;
+	border: 0pt solid #000000;
+	padding-bottom : 3px;
+	padding-left : 10px;
+	padding-right : 2px;
+	padding-top : 3px;
+	background:  #F3F3E3;
+	visibility : visible;
+border: 1px solid #CDCA87;
+}
+
+.tabdata {
+	color: #333333;
+	font-family : Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size : 8pt;
+	font-weight : normal;
+	text-align : left;
+	border: 0pt solid #000000;
+	padding-bottom : 3px;
+	padding-left : 10px;
+	padding-right : 2px;
+	padding-top : 3px;
+	
+	visibility : visible;
+border: 1px solid #CDCA87;
+}
+
+#footer {
+	display: none;
+}
+

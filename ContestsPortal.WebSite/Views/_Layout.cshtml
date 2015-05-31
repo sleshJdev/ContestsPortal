@@ -1,0 +1,31 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/styles/site.css")"/>
+        <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/styles/webfonts.css")" />
+        @RenderSection("styles",false)
+        <meta name="viewport" content="width=device-width" />
+        <title>Портал соревнований</title>
+    </head>
+    <body>
+        <header>
+            <div id="top">
+                <div id="entry">@{ Html.RenderAction("EntryPartial","Account");}</div>
+            </div>
+            <div id="menu">
+                @{ Html.RenderAction("MainMenu", "Home"); }
+            </div>
+        </header>
+        <div id="wrapper">
+            <div id="leftside"><h2>LEFTSIDE</h2></div>
+            <div id="container">
+                @RenderBody()
+            </div>
+        </div>
+        <footer></footer>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryajax")
+        @RenderSection("scripts", false)
+    </body>
+</html>

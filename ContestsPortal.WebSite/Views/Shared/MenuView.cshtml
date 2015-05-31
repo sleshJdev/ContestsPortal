@@ -1,0 +1,19 @@
+﻿@model List<ContestsPortal.Domain.Models.MenuItem>
+<ul>
+    @foreach (var item in Model)
+    {    
+       <li>@Html.ActionLink(item.MenuItemTitle,item.ActionName,item.ControllerName, null, new {title=item.HoverDescription})
+            @if (item.SubItems.Any())
+            { 
+                <ul>
+                    @foreach (var subitem in item.SubItems.OrderBy(x=>x.OrderNumber))
+                    {
+                       <li>@Html.ActionLink(subitem.MenuItemTitle, subitem.ActionName, subitem.ControllerName,null,new {title = subitem.HoverDescription})</li>
+                    }
+                </ul>
+            }
+         </li>
+        
+    }
+</ul>
+

@@ -1,0 +1,56 @@
+﻿@using ContestsPortal.Domain.Models
+@model ContestsPortal.WebSite.ViewModels.Administrator.ContestEditorViewModel
+   @{
+       var priorities = (ViewBag.ContestPriorities as SelectList);
+       var k = 0;
+   }
+@using (Html.BeginForm("AddNewContest","Administrator",FormMethod.Post,new{id="contestForm"}))  
+{
+    Html.EnableUnobtrusiveJavaScript(true);
+    <div id="dialog" class="hidden" title="Создать новый контест?">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+        В случае создания нового контеста несохраненные данные будут утеряны. Вы уверены, что хотите удалить их?</p>
+    </div>
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.TasksCount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TasksCount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TasksCount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContestPriorityId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ContestPriorityId",priorities)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContestTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContestTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContestTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContestBeginning, htmlAttributes: new { @class = "control-label col-md-2", id="dateBegin" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContestBeginning, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContestBeginning, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContestComment, htmlAttributes: new { @class = "control-label col-md-2", id = "contestComment" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContestComment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContestComment, "", new { @class = "text-danger", style="display:block;" })
+            </div>
+        </div>
+        <div id="tasks"></div>
+        <input type="submit" id="createContest" value="Создать контест" class="btn btn-default"/>
+    </div>
+}

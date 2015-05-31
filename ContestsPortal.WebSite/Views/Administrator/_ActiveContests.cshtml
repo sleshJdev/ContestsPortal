@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ContestsPortal.Domain.Models.Contest>
+
+@{
+    Layout = null;
+}
+@if (Model != null && Model.Any())
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(item => item.ContestTitle)</th>
+                <th>@Html.DisplayNameFor(item => item.ContestBeginning)</th>
+                <th>@Html.DisplayNameFor(item => item.ContestEnd)</th>
+                <th>@Html.DisplayNameFor(item => item.TasksCount)</th>
+                <th>@Html.DisplayNameFor(item => item.CompetitorsCount)</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContestTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContestBeginning)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContestEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TasksCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompetitorsCount)
+                </td>
+                <td>
+                    @Html.ActionLink("Описание", "ActiveContestTasks", new {contestId = item.ContestId})
+                </td>
+            </tr>
+        }
+    
+    </table>
+}
+else
+{<p>Активные контесты отсутствуют.</p>}

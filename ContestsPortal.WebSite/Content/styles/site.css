@@ -1,0 +1,188 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+}
+
+div p {
+    margin: 5px 3px;
+    text-align: left;
+    font-family:'Segoe UI', Arial, sans-serif; 
+        /*'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+    font-size: 14px;
+}
+
+a:hover {
+    color: #cb5211;
+}
+
+h2, h3, h4, h5 {
+    font-family: Tinos;
+    font-weight: normal;
+    text-align: center;
+    width: 70%;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 22px;
+}
+
+
+h4 {
+    font-size: 20px;
+}
+
+
+body {
+    font: 14px Verdana, Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    /*border: 0;*/
+}
+
+header {
+    width: 100%;
+    height: auto;
+}
+
+footer {
+    width: inherit;
+    height: 150px;
+    min-height: 150px;
+    border-top: 1px solid orange;
+    background-color: white;
+}
+
+#top {
+    height: 58px;
+    background-color: #f7f7f7;
+    vertical-align: baseline;
+    width: 100%;
+}
+
+#top p {
+    padding: 0 10px;
+}
+
+#menu {
+    margin: 0 auto;
+    height: 80px;
+    height: 100px;
+    background-color: orange;
+}
+
+#entry {
+    margin-top: 5px;
+    width: auto;
+    float: left;
+}
+
+#entry p {
+    padding-top: 5px;
+    font: 14px bold Lato,Helvetica;
+}
+
+
+#entry a {
+    font-family: Lato, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* pseudo selectors for <a> will be here*/
+
+#entry span {
+    font-size: 10px; 
+}
+
+p.choice {
+    width: 200px;
+    text-align: center;
+    margin: 10px 0;
+    font: normal 10px Helvetica;
+}
+
+
+#wrapper {
+    display: table;
+    height: auto;
+    min-height: 800px;
+    width: 990px;
+    color: green;
+    margin: 0 auto;
+}
+
+#leftside {
+    border-left: 1px solid orange;
+    border-right: 1px solid orange;
+    max-width: 30%;
+    display: table-cell;
+
+}
+
+
+#container {
+    padding: 10px 5px;
+    width: 80%;
+    display: table-cell;
+    height: 100%;
+    border-right: 1px solid orange;
+}
+
+.notification {
+    font-family: Verdana;
+}
+
+#menu {
+    text-align: center;
+}
+
+#menu ul {
+    display: block;
+    list-style-type:none;
+    margin: 0;
+    padding: 0;
+    padding-top: 70px;
+    height: auto;
+    width: 100%;
+    font:  bold 20px "RobotoSlabLight";
+}
+
+
+#menu ul > li {
+    display: inline;
+    margin:  10px;
+}
+
+#menu ul ul {
+    display: none;
+}
+
+
+a.button {
+    width: auto;
+    width: 100px;
+    height: 20px;
+    border: 1px solid black;
+}
+
+.hidden {
+    display: none;
+}
+
+ input[type="checkbox"]{
+    width: 18px;
+    height: 18px;
+}
+
+ .dropdown {
+     font-size: 16px;
+ }

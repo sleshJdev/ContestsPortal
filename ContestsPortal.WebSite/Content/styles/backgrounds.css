@@ -1,0 +1,21 @@
+﻿#Google {
+    background-image: url("../images/Google/GooglePlusIconPack.jpg");
+    background-repeat: no-repeat;
+    background-position-x: -119px;
+    background-position-y: -32px;
+    border: none;   
+}
+
+
+#Twitter {
+    background-image: url("../images/Twitter/twitter-b-X68.png");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    }
+
+
+#Facebook {
+     background-image: url("../images/Facebook/facebook-68.png");
+    background-repeat: no-repeat;
+    background-color: transparent;
+}

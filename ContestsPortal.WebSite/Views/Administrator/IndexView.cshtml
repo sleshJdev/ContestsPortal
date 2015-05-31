@@ -1,0 +1,105 @@
+﻿@using System.Web.Optimization
+@model ContestsPortal.Domain.Models.UserProfile
+@{ Layout = "~/Views/_Layout.cshtml"; } 
+@section styles
+{ 
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/styles/admin.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/styles/tables.css")"/>
+    <link rel="stylesheet" href="@Url.Content("~/content/styles/forms.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/content/styles/validation.css")"/>
+    <link rel="stylesheet" href="@Url.Content("~/content/styles/jquery.datetimepicker.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/content/themes/base/all.css")" />
+}
+@section scripts
+{ 
+  @Scripts.Render("~/bundles/jqueryval")
+  @Scripts.Render("~/bundles/adminui")
+  @Scripts.Render("~/bundles/administration")
+@*    <script type="text/javascript" src="@Url.Content("~/Scripts/admin.js")"></script>*@
+@*    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.datetimepicker.js")"></script>*@
+} 
+<h2>Панель администратора</h2>
+<hr/>   
+<div id="tabs">
+    <ul>
+        <li><a href="#tab-12">Редактирование шаблонов</a></li>
+        <li><a href="#tab-1">Управление контестами</a></li>
+        <li><a href="#tab-2">Пользователи</a></li>
+        <li><a href="#tab-3">Судьи</a></li>
+        <li><a href="#tab-4">Модераторы</a></li>
+        <li><a href="#tab-5">Вопросы</a></li>
+        <li><a href="#tab-6">Статистика</a></li>
+    </ul>
+    <div id="tab-12">
+        <div id="edit-templates-tabs">
+            <ul>
+                <li><a href="#tab-121">Контест</a></li>                
+                <li><a href="#tab-122">Задача</a></li> 
+                <li><a href="#tab-123">Пользователь</a></li>
+            </ul>
+            <div id="tab-121">
+                <code>Tab 121 Контест</code>
+            </div>
+            <div id="tab-122">
+                <code>Tab 122 Задача</code>
+            </div>
+            <div id="tab-123">
+                <code>Tab 123 Пользователь</code>
+            </div>
+        </div>
+    </div>
+    <div id="tab-1"><h3>Управление контестами</h3>
+        <div id="internaltabs">
+            <ul>
+                <li><a href="#tab-7">Активные контесты</a></li>
+                <li><a href="#tab-8">Контесты в состоянии ожидания</a></li>           
+                <li><a href="#tab-11">Регистрация участников</a></li>
+                <li><a href="#tab-10">Подведение итогов</a></li>
+                <li><a href="#tab-9">Добавить новый контест</a></li>                
+            </ul>
+            <div id="tab-7">
+                <h4>Текущие контесты</h4>
+                <hr/>
+                <div>
+                    <div class="filter"></div>
+                    <div id="current" class="conteststable"></div>
+                </div>
+            </div>
+            <div id="tab-8">
+                <h4>Соревнования, ожидающие открытия на регистрацию</h4>
+                <hr />
+                <div>
+                    <div class="filter"></div>
+                    <div id="awaiting" class="conteststable"></div>
+                </div>
+            </div>
+            <div id="tab-10"><h4>Подведение итогов</h4>
+                <hr />
+                <p>Текущая вкладка формируется автоматически как результат работы судейства.</p>
+                <div id="completed"></div></div>
+            <div id="tab-9">
+                <h4>Инициация новых контестов</h4>
+                <hr />
+                <a id="createButton" class="button"></a>
+                <div id="addnew"></div>
+            </div>
+            <div id="tab-11">
+                <h4>Регистрация участников</h4>
+                <hr/>
+                <p>Текущая вкладка фиксирует регистрацию участников на одно или более соревнований.</p>
+                <div class="filter"></div>
+                <div id="registration"></div>
+            </div>
+        </div>
+    </div>
+    <div id="tab-2"><h3>Пользователи</h3>
+        <hr/></div>
+    <div id="tab-3"><h3>Судьи</h3>
+        <hr /></div>
+    <div id="tab-4"><h3>Модераторы</h3>
+        <hr /></div>
+    <div id="tab-5"><h3>Вопросы</h3>
+        <hr /></div>
+    <div id="tab-6"><h3>Статистика</h3>
+        <hr /></div>
+</div>

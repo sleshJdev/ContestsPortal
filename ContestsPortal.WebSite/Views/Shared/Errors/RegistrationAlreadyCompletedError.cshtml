@@ -1,0 +1,25 @@
+﻿@using System.ServiceModel.Security.Tokens
+
+@{
+    ViewBag.Title = "RegistrationAlreadyCompletedError";
+    Layout = "~/Views/_Layout.cshtml";
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            var counter = 0;
+            var timer = setInterval(function() {
+                counter++;
+                if (counter == 4) {
+                    clearInterval(timer);
+                    window.location.href = "/Home/Index";
+                }
+            }, 1000);
+        })
+    </script>}
+
+<h2>Что-то пошло не так.</h2>
+<p>Пользователь уже успешно завершил регистрацию.</p>
+<p>Вы будете перенаправлены на домашнюю страницу.</p>
+

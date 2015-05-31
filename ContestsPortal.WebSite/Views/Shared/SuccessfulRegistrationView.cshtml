@@ -1,0 +1,23 @@
+﻿@using ContestsPortal.WebSite.Controllers
+@model ContestsPortal.Domain.Models.UserProfile
+@{
+    ViewBag.Title = "SuccessfulRegistrationView";
+    Layout = "~/Views/_Layout.cshtml";
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            var counter = 0;
+            var timer = setInterval(function() {
+                counter++;
+                if (counter == 4) {
+                    clearInterval(timer);
+                    window.location.href = "/Home/Index";
+                }
+            }, 1000);
+        })
+    </script>}
+<h2>Регистрация выполнена успешно</h2>
+<p>Теперь вы можете заходить на наш портал, используя указанные при регистрации логин/email и пароль.</p>
+

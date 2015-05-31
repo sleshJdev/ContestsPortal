@@ -1,0 +1,27 @@
+﻿.field-validation-error, .field-validation-error span {
+    color: red;
+    font-size: 12px;
+}
+
+.input-validation-error {
+    border-color: red;
+}
+
+.text-danger li {
+    font-size: 12px;
+    color: red;
+}
+
+.validation-summary-errors{
+    margin: 5px 3px;
+}
+
+.validation-summary-errors ul > li {
+    margin: 5px;
+    margin-left: 20px;
+    font: 12px Verdana; 
+}
+.validation-summary-errors span {
+    color: green;
+}
+

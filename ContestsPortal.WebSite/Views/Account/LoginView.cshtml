@@ -1,0 +1,51 @@
+﻿@using ContestsPortal.WebSite.ViewModels.Account
+@model ContestsPortal.WebSite.ViewModels.Account.LoginViewModel
+@{
+    ViewBag.Title = "LoginView";
+    Layout = "~/Views/_Layout.cshtml";
+}
+@section styles {
+    <link rel="stylesheet" href="@Url.Content("~/content/styles/validation.css")"/>
+    <link rel="stylesheet" href="@Url.Content("~/content/styles/forms.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/content/styles/backgrounds.css")" />
+}
+<h2>Вход пользователя</h2>
+@using (Html.BeginForm("Login","Account",null,FormMethod.Post,new{@class="form"}))
+{
+    @Html.AntiForgeryToken()
+   
+        <hr />
+        <p>Введите ваши идентификационные данные и пароль.</p>
+        @Html.ValidationSummary(true, "Исправьте  следующие ошибки ввода:", new { @class = "text-danger" })
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <p class="choice">или</p>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <p class="choice">и</p>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    <p>@Html.CheckBoxFor(x=>x.RememberMe, new {})</p>
+                </div>
+            </div>
+            <input type="submit" value="Войти" />
+}
+
+<div id="socialLoginForm">
+    <hr />
+    @Html.Partial("_SocialLogins", new SocialLoginViewModel() { ReturnUrl = Url.Action("Index","Member") })
+</div>

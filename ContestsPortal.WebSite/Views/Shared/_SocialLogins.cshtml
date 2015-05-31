@@ -1,0 +1,17 @@
+﻿@using System.Web.UI.WebControls
+@using Microsoft.Owin.Security
+@model ContestsPortal.WebSite.ViewModels.Account.SocialLoginViewModel
+@{
+    var authtypes = HttpContext.Current.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    if (authtypes.Any())
+    {
+        using (Html.BeginForm("ExternalLogin", "Account", new { returnUrl = Model.ReturnUrl }))
+        {
+            <p>Авторизуйтесь, используя социальные сети:</p>
+            foreach (AuthenticationDescription item in authtypes)
+            {
+                <button type="submit" class="button no-indent" id="@item.AuthenticationType" name="provider" value="@item.AuthenticationType" title="Login using your @item.Caption account"></button>
+            }
+        }
+    }
+}

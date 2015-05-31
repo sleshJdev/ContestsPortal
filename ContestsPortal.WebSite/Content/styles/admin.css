@@ -1,0 +1,84 @@
+﻿#tabs, #tabs > div {
+    border: none;
+    height: 100%;
+    margin: 5px 0;
+    text-align: center;
+    width: auto;
+}
+
+#tabs > div { padding: 0.7em 0.5em; }
+
+#tabs a { font: normal 12px Georgia; }
+
+#internaltabs, #internaltabs > div {
+    border: none;
+    font-size: 12px;
+    margin: 10px 0;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+}
+
+#internaltabs .control-label { font-size: 12px; }
+
+#internaltabs ul, #tabs ul { padding-top: 1px; }
+
+#internaltabs li { margin-top: 2px; }
+
+input[type="submit"] { padding: 5px 3px; }
+
+div.buttons-panel { border: 1px gray solid; }
+
+#tasks {
+    margin-left: 3px;
+    position: relative;
+}
+
+#tasks .button {
+    margin: 5px 0;
+    margin-left: 0;
+    padding: 0;
+}
+
+#tasks h4.ui-accordion-header {
+    font-size: 14px;
+    margin: 0 auto;
+    margin-top: 5px;
+    padding: 0;
+    width: auto;
+}
+
+#tasks .ui-accordion-content { padding: 0; }
+
+#tasks .task-panel { padding-left: 5px; }
+
+#tasks .langlist {
+    width: 200px;
+    margin: 25px 25px 0 0;
+    display: inline-block;
+}
+
+h5.ui-accordion-header {
+    width: auto;
+}
+
+
+.langlist input[type='checkbox'] {
+    margin: 3px 0;
+    vertical-align: -5px;
+    }
+
+#tasks .langlist .ui-accordion-content {
+    padding: 5px;
+}
+
+.langlist p {
+    display: inline-block;
+    margin-top: 0;
+}
+
+#tasks label.error { color: red; }
+
+#tasks form input.error { border:1px solid red; }
+
+

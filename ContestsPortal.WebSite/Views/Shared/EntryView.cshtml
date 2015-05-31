@@ -1,0 +1,28 @@
+﻿@using ContestsPortal.WebSite.ViewModels.Account
+@using Microsoft.AspNet.Identity
+@model System.Security.Principal.IPrincipal
+@if (!Model.Identity.IsAuthenticated)
+     {    
+         <p>Привет, Гость</p>
+         <p><span>Ты можешь</span> @Html.ActionLink("Войти", "Login","Account")
+             <span>либо</span>
+             @Html.ActionLink("Зарегистрироваться", "Register", "Account")</p>
+        
+     }
+     else
+     {
+         if (Model.IsInRole(ContestsPortal.WebSite.Roles.Member))
+         {
+             <p>Привет, @Html.ActionLink(@Model.Identity.Name, "Index", "Member",null, new {@class ="username"})</p>
+         }
+         if(Model.IsInRole(ContestsPortal.WebSite.Roles.Administrator) || Model.IsInRole(ContestsPortal.WebSite.Roles.SuperAdministrator))
+         {
+             <p>Здравствуйте, @Html.ActionLink(@Model.Identity.Name, "Index", "Administrator",null, new { @class = "username" })</p>
+         }
+         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+         {
+             @Html.AntiForgeryToken()
+             <p class="no-indent"><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></p>
+         }
+     }
+

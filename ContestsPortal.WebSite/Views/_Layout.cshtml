@@ -14,13 +14,12 @@
                 <div id="entry">@{ Html.RenderAction("EntryPartial","Account");}</div>
             </div>
             <div id="menu">
-                @{ Html.RenderAction("MainMenu", "Home"); }
+                @{ Html.RenderAction("MainMenu", "Home"); }                            
             </div>
         </header>
         <div id="wrapper">
             <div id="leftside">
-                <h2>Новости</h2>
-                @{ Html.RenderAction("Posts", "Home"); }
+                <h2>Новости</h2>              
             </div>
             <div id="container">
                 @RenderBody()

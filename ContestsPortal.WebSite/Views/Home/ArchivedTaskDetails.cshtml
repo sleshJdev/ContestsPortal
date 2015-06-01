@@ -1,50 +1,57 @@
 ﻿@model ContestsPortal.Domain.Models.ArchivedTask
 
 @{
-    ViewBag.Title = "ArchivedTaskDetails";
+    ViewBag.Title = "Подробности задачи";
+    Layout = "~/Views/_Layout.cshtml";
 }
 
-<h2>ArchivedTaskDetails</h2>
+@section styles {
+    <link rel="stylesheet" href="@Url.Content("~/content/styles/validation.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/content/themes/base/all.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/content/styles/forms.css")" />
+}
+@section scripts
+{   
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
 
-<fieldset>
-    <legend>ArchivedTask</legend>
+<h4>Подробности задачи</b></h4>
+<hr />
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.TaskId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TaskId)
-    </div>
+<form class="smart-green">     
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.TaskContent)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TaskContent)
-    </div>
+    <label>
+        <span>Содержимое задачи</span>
+        <div>
+            @Html.EditorFor(model => model.TaskContent, new {htmlAttributes = new {@class = "input"}})
+            @Html.ValidationMessageFor(model => model.TaskContent, "", new {@class = "text-danger"})
+        </div>
+    </label>   
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.TaskComplexity)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TaskComplexity)
-    </div>
+    <label>
+        <span>Уровень сложности</span>
+        <div>
+            @Html.EditorFor(model => model.TaskComplexity, new {htmlAttributes = new {@class = "input"}})
+            @Html.ValidationMessageFor(model => model.TaskComplexity, "", new {@class = "text-danger"})
+        </div>
+    </label>
+    
+    <label>
+        <span>Название</span>
+        <div>
+            @Html.EditorFor(model => model.TaskTitle, new {htmlAttributes = new {@class = "input"}})
+            @Html.ValidationMessageFor(model => model.TaskTitle, "", new {@class = "text-danger"})
+        </div>
+    </label>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.TaskTitle)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TaskTitle)
-    </div>
+    <label>
+        <span>Категория</span>
+        <div>
+            @Html.EditorFor(model => model.IdTaskCategory, new {htmlAttributes = new {@class = "input"}})
+            @Html.ValidationMessageFor(model => model.IdTaskCategory, "", new {@class = "text-danger"})
+        </div>
+    </label>
+</form>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.IdTaskCategory)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.IdTaskCategory)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

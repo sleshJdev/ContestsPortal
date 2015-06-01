@@ -170,8 +170,7 @@ namespace ContestsPortal.Domain.DataAccess.Providers
             {
                 using (PortalContext context = _getContext())
                 {
-
-                    Contest contest = context.Contests.Where(x => x.ContestId.Equals(contestId)).FirstOrDefault();
+                    Contest contest = context.Contests.Where(x => x.ContestId.Equals(contestId)).Include("Tasks").FirstOrDefault();
                     return contest;
                 }
             });

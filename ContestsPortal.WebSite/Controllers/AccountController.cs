@@ -330,8 +330,7 @@ namespace ContestsPortal.WebSite.Controllers
             }
             return returnUrl;
         }
-
-
+        
         [NoCache]
         [ChildActionOnly]
         [AllowAnonymous]

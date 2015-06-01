@@ -11,15 +11,19 @@ using Microsoft.Owin;
 using System;
 using ContestsPortal.Domain.DataAccess.Providers.Interfaces;
 using System.Diagnostics;
+using Microsoft.AspNet.Identity;
 
 namespace ContestsPortal.WebSite.Controllers
 {    
-    [AllowAnonymous]
+    //[AllowAnonymous]
     public class HomeController : AsyncController
     {
         private readonly IArchivedTaskProvider _archivedTaskProvider;
         private readonly IContestsProvider _contestsProvider;
         private readonly IPostProvider _postProvider;
+        private readonly IUsersProvider _usersProvider;
+        private readonly ICompetitorProvider _competitorProvider;
+
 
         #region Constructors
 
@@ -27,15 +31,23 @@ namespace ContestsPortal.WebSite.Controllers
         {
         }
 
-        public HomeController(IContestsProvider contestsProvider, IArchivedTaskProvider archivedTaskProvider, IPostProvider postProvider)
+        public HomeController(IContestsProvider contestsProvider, 
+            IArchivedTaskProvider archivedTaskProvider, 
+            IPostProvider postProvider, 
+            IUsersProvider usersProvider, 
+            ICompetitorProvider competitorProvider)
         {
             if (contestsProvider == null) throw new ArgumentNullException("contestsProvider");
             if (archivedTaskProvider == null) throw new ArgumentNullException("archivedTaskProvider");
             if (postProvider == null) throw new ArgumentNullException("postProvider");
-
+            if (usersProvider == null) throw new ArgumentNullException("usersProvider");
+            if (competitorProvider == null) throw new ArgumentNullException("competitorProvider");
+            
             _contestsProvider = contestsProvider;
             _archivedTaskProvider = archivedTaskProvider;
             _postProvider = postProvider;
+            _usersProvider = usersProvider;
+            _competitorProvider = competitorProvider;
         }
 
         #endregion Constructors
@@ -53,11 +65,42 @@ namespace ContestsPortal.WebSite.Controllers
             }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
+        //[Authorize]
+        [HttpGet]
+        [HttpPost, AjaxOnly]
+        public async Task<ActionResult> TakePart(int contestId)
+        {
+            UserProfile user = await _usersProvider.GetByLogin(HttpContext.User.Identity.Name);
+            Contest contest = await _contestsProvider.GetContest(contestId);
+
+            Competitor competitor = new Competitor()
+            {
+                Contest = contest,
+                IdContest = contest.ContestId,
+                UserProfile = user,
+                IdProfile = user.Id
+            };
+
+            IdentityResult result = await _competitorProvider.AddCompretitor(competitor);
+            if (result.Succeeded) return Json(new { Succeeded = result.Succeeded }, JsonRequestBehavior.DenyGet);
+
+            return RedirectToAction("ContestsHistory");
+        }
+
         public async Task<ActionResult> ContestsDetails(int contestId)
         {
             Contest contest = await _contestsProvider.GetContest(contestId);
 
-            Debug.WriteLine("HomeController.ContestsDetails. id: " + contestId + ", " + contest.Tasks.Count);
+            contest.Tasks = new[]            
+            {
+                new ContestTask(){TaskTitle = "ArchivedTask1", TaskContent = "ArchivedTask1 content", TaskComplexity = 5},
+                new ContestTask(){TaskTitle = "ArchivedTask2", TaskContent = "ArchivedTask2 content", TaskComplexity = 10},
+                new ContestTask(){TaskTitle = "ArchivedTask3", TaskContent = "ArchivedTask3 content", TaskComplexity = 15},
+                new ContestTask(){TaskTitle = "ArchivedTask4", TaskContent = "ArchivedTask4 content", TaskComplexity = 20},
+            }.ToList();
+
+            Debug.WriteLine("HomeController.ContestsDetails. id: " + contestId + ", " + contest.Tasks.Count + ", " + contest.TasksCount);
+            Debug.WriteLine("Tasks: " + contest.Tasks.Count);
 
             return View("ContestsDetails", contest);
         }
@@ -73,14 +116,14 @@ namespace ContestsPortal.WebSite.Controllers
         {
             ArchivedTask task = await _archivedTaskProvider.GetArchivedTaskAsync(taskId);
             Debug.WriteLine("HomeController.ArchivedTaskDetails. id: " + taskId);
-
-            return View("ArchivedTaskDetails", task);   
+            return View("ArchivedTaskDetails", new ArchivedTask() { TaskTitle = "ArchivedTask1", TaskContent = "ArchivedTask1 content", TaskComplexity = 5 });   
         }
-        
+
         public async Task<ActionResult> ArchivedTasks()
         {
             IList<ArchivedTask> tasks = await _archivedTaskProvider.GetAllArchivedTasksAsync();
-            Debug.WriteLine("HomeController.ArchivedTasks Count: " + tasks.Count);
+           
+            //stub
             tasks = new[]
             {
                 new ArchivedTask(){TaskTitle = "ArchivedTask1", TaskContent = "ArchivedTask1 content", TaskComplexity = 5},
@@ -94,33 +137,27 @@ namespace ContestsPortal.WebSite.Controllers
 
         [NoCache]
         [ChildActionOnly]
-        public async Task<PartialViewResult> MainMenu()
+        public async Task<ActionResult> MainMenu()
         {
             var list = await DefineMainMenuRefs();
-            return PartialView("MenuView", list);
+
+            return View("MenuView", list);
         }
 
         [NoCache]
         [ChildActionOnly]
-        public async Task<PartialViewResult> Posts()
+        public async Task<ActionResult> Posts()
         {
             IList<Post> posts = await _postProvider.GetAllPosts();
-            posts = new[]
-            {
-              new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now},
-              new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now},
-              new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now},
-              new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now}
-            };
 
-            return PartialView("_Posts", posts);
+            return View("Posts", posts);
         }
 
         public async Task<ActionResult> PostDetails(int postId)
         {
             Post post = await _postProvider.GetPost(postId);
 
-            return View("_PostDetails", post);
+            return View("PostDetails", post);
         }
 
         public Task<ActionResult> CompetitorsRating()

@@ -47,9 +47,10 @@
                     @Html.DisplayFor(modelItem => item.IdContestState)
                 </td>
                 <td>
-                    @Ajax.ActionLink("Подтвердить", "PassToRegisrationStage", "Administrator", new { contestId = item.ContestId }, new AjaxOptions() { })
-                    @Ajax.ActionLink("Удалить", "DeleteContest","Administrator", new { contestId = item.ContestId }, new AjaxOptions())
-                    @Ajax.ActionLink("Задачи", "ContestDetails","Administrator",new {contestId = item.ContestId},new AjaxOptions(){})
+                    @Ajax.ActionLink("Редактировать", "PassToRegisrationStage", "Administrator", new { contestId = item.ContestId }, new AjaxOptions() { }) |
+                    @Ajax.ActionLink("Подтвердить", "PassToRegisrationStage", "Administrator", new { contestId = item.ContestId }, new AjaxOptions() { }) |
+                    @Ajax.ActionLink("Удалить", "DeleteContest","Administrator", new { contestId = item.ContestId }, new AjaxOptions()) |
+                    @Ajax.ActionLink("Задачи", "ContestDetails","Administrator",new {contestId = item.ContestId},new AjaxOptions(){}) 
                 </td>
             </tr>
         }

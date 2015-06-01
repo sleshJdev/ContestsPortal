@@ -324,6 +324,7 @@
     <Compile Include="Infrastructure\DataAttributes\PhoneNumberAttribute.cs" />
     <Compile Include="Infrastructure\DataAttributes\RequiredIfNull.cs" />
     <Compile Include="Infrastructure\ErrorsLocalizer.cs" />
+    <Content Include="Scripts\take-part.js" />
     <Compile Include="ViewModels\Account\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="ViewModels\Account\SendCodeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -375,11 +376,10 @@
     <Content Include="Views\Administrator\_ProgrammingLanguages.cshtml" />
     <Content Include="Views\Administrator\_ProgrammingLanguageEdit.cshtml" />
     <Content Include="Views\Home\ContestsHistory.cshtml" />
-    <Content Include="Views\Home\ArchivedTasksDetails.cshtml" />
     <Content Include="Views\Home\ArchivedTaskDetails.cshtml" />
     <Content Include="Views\Home\ContestsDetails.cshtml" />
-    <Content Include="Views\Home\_Posts.cshtml" />
-    <Content Include="Views\Home\_PostDetails.cshtml" />
+    <Content Include="Views\Home\Posts.cshtml" />
+    <Content Include="Views\Home\PostDetails.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\StringTruncate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

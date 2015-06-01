@@ -50,6 +50,18 @@ namespace ContestsPortal.Domain.DataAccess.Providers
                     return context.Users.Where(x => x.Id == userId).FirstOrDefault();
                 }
             });
-        }        
+        }
+
+
+        public Task<UserProfile> GetByLogin(string login)
+        {
+            return Task<UserProfile>.Factory.StartNew(() =>
+            {
+                using (PortalContext context = _getContext())
+                {
+                    return context.Users.Where(x => x.NickName.Equals(login)).FirstOrDefault();
+                }
+            });
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ContestsPortal.Domain.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace ContestsPortal.Domain.DataAccess.Providers.Interfaces
 {
-    public interface IUsersProvider
+    public interface ICompetitorProvider
     {
-        Task<IList<UserProfile>> GetAllUsers();
-        Task<UserProfile> GetUser(int userId);
-        Task<UserProfile> GetByLogin(string login);
+        Task<IdentityResult> AddCompretitor(Competitor competitor);        
     }
 }

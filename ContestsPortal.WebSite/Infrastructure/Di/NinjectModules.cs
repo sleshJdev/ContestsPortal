@@ -15,6 +15,7 @@ namespace ContestsPortal.WebSite.Infrastructure.Di
     {
         public override void Load()
         {
+            Bind<ICompetitorProvider>().To<CompetitorProvider>().InThreadScope();
             Bind<IPostProvider>().To<PostProvider>().InThreadScope();
             Bind<IArchivedTaskProvider>().To<ArchivedTaskProvider>().InThreadScope();
             Bind<IProgrammingLanguageProvider>().To<ProgrammingLanguageProvider>().InThreadScope();

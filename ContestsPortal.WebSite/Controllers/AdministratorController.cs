@@ -233,9 +233,10 @@ namespace ContestsPortal.WebSite.Controllers
         }
 
         [HttpPost, AjaxOnly]
-        public async Task<ActionResult> ContestDetails(int contestId)
+        public async Task<ActionResult> ContesEdit(int contestId)
         {
-            // no yet
+            Contest contest = await _contestsProvider.GetContest(contestId);
+            
             return null;
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using ContestsPortal.Domain.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace ContestsPortal.WebSite.ViewModels.Administrator
 {
@@ -29,8 +30,14 @@ namespace ContestsPortal.WebSite.ViewModels.Administrator
 
         #region Properties
 
+        [Editable(false)]
+        [HiddenInput(DisplayValue = false)]
         public int LanguageId { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "LanguageNameIsRequired")]
+        [Display(ResourceType = typeof(CommonResources), Name = "LanguageName")]
         public string LanguageName { get; set; }
+        
         public bool IsSelected { get; set; }
 
         #endregion

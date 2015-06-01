@@ -22,7 +22,6 @@
 <hr/>   
 <div id="tabs">
     <ul>
-        <li><a href="#tab-12">Редактирование шаблонов</a></li>
         <li><a href="#tab-1">Управление контестами</a></li>
         <li><a href="#tab-2">Пользователи</a></li>
         <li><a href="#tab-3">Судьи</a></li>
@@ -30,33 +29,19 @@
         <li><a href="#tab-5">Вопросы</a></li>
         <li><a href="#tab-6">Статистика</a></li>
     </ul>
-    <div id="tab-12">
-        <div id="edit-templates-tabs">
-            <ul>
-                <li><a href="#tab-121">Контест</a></li>                
-                <li><a href="#tab-122">Задача</a></li> 
-                <li><a href="#tab-123">Пользователь</a></li>
-            </ul>
-            <div id="tab-121">
-                <code>Tab 121 Контест</code>
-            </div>
-            <div id="tab-122">
-                <code>Tab 122 Задача</code>
-            </div>
-            <div id="tab-123">
-                <code>Tab 123 Пользователь</code>
-            </div>
-        </div>
-    </div>
     <div id="tab-1"><h3>Управление контестами</h3>
         <div id="internaltabs">
             <ul>
                 <li><a href="#tab-7">Активные контесты</a></li>
-                <li><a href="#tab-8">Контесты в состоянии ожидания</a></li>           
+                <li><a href="#tab-8">Контесты в состоянии ожидания</a></li>
                 <li><a href="#tab-11">Регистрация участников</a></li>
                 <li><a href="#tab-10">Подведение итогов</a></li>
-                <li><a href="#tab-9">Добавить новый контест</a></li>                
+                <li><a href="#tab-9">Добавить новый контест</a></li>
+                <li><a href="#languages">Языки программирования</a></li>
             </ul>
+            <div id="languages">
+                <div id="languages-container"></div>
+            </div>
             <div id="tab-7">
                 <h4>Текущие контесты</h4>
                 <hr/>
@@ -92,8 +77,12 @@
             </div>
         </div>
     </div>
-    <div id="tab-2"><h3>Пользователи</h3>
-        <hr/></div>
+    <div id="tab-2">        
+        <div id="users-container" class="conteststable">
+            
+        <hr/>
+        </div>      
+    </div>
     <div id="tab-3"><h3>Судьи</h3>
         <hr /></div>
     <div id="tab-4"><h3>Модераторы</h3>

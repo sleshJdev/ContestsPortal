@@ -1,60 +1,59 @@
-﻿$(function() {
+﻿$(function () {
     getActiveContests("current");
     $("#tabs").tabs();
-    $("#edit-templates-tabs").tabs();
     $("#internaltabs").tabs();
-    $("#internaltabs").on("click", "a", function() {
+    $("#internaltabs").on("click", "a", function () {
         var id = $(this).attr("href");
         switch (id) {
-        case ("#tab-7"):
-            {
-                getActiveContests("current");
-            }
-            break;
-        // awaiting contests
-        case ("#tab-8"):
-            {
-                getAwaitingContests("awaiting");
-            }
-            break;
-        // add contest tab
-        case ("#tab-9"):
-            {
-                unbindButtonEvents("createButton");
-                createContestButton("createButton");
-                $(document).on("submit", "#contestForm", function(e) {
-                    e.preventDefault();
-                    var result = doCustomValidation();
-                    if (result == true) {
-                        submitContestForm();
-                    }
-                });
-            }
-            break;
-        case ("#tab-10"):
-            {
-
-
-            }
-            break;
-        //competitors registration
-        case ("#tab-11"):
-            {
-
-
-            }
-            break;
-        }
-    });
-
-    $("#tabs").on("click", "a", function() {
-            var id = $(this).attr("href");
-            switch (id) {
-            case ("#tab-122"):
+            case ("#tab-7"):
                 {
-                    
+                    getActiveContests("current");
                 }
                 break;
+                // awaiting contests
+            case ("#tab-8"):
+                {
+                    getAwaitingContests("awaiting");
+                }
+                break;
+                // add contest tab
+            case ("#tab-9"):
+                {
+                    unbindButtonEvents("createButton");
+                    createContestButton("createButton");
+                    $(document).on("submit", "#contestForm", function (e) {
+                        e.preventDefault();
+                        var result = doCustomValidation();
+                        if (result == true) {
+                            submitContestForm();
+                        }
+                    });
+                }
+                break;
+            case ("#tab-10"):
+                {
+
+
+                }
+                break;
+                //competitors registration
+            case ("#tab-11"):
+                {
+
+
+                }
+                break;
+            case ("#languages"):
+                {
+                    getLanguages("languages-container");
+                }
+                break;                
+        }
+    });    
+
+    $("#tabs").on("click", "a", function () {
+        var id = $(this).attr("href");
+        switch (id) {
             case ("#tab-1"):
                 {
                     getActiveContests("current");
@@ -62,7 +61,7 @@
                 break;
             case ("#tab-2"):
                 {
-
+                    getUsers("users-container");                    
                 };
                 break;
             case ("#tab-3"):
@@ -81,30 +80,152 @@
                 {
                 }
                 break;
-            }
         }
+    }
     );
+    
+    function addLanguage(containerId) {
+        processLanguage(containerId, "POST", "/Administrator/AddLanguage", {});
+    }
 
+    function editLanguage(containerId, languageId) {
+        processLanguage(containerId, "GET", "/Administrator/EditLanguage", { "languageId": languageId });
+    }
 
-    function getActiveContests(containerId) {
-
-        $.ajax({ url: "/Administrator/ActiveContests" }).done(function(data) {
+    function deleteLanguage(containerId, languageId) {
+        $.ajax({
+            url: "/Administrator/DeleteLanguage",
+            data: { "languageId": languageId }
+        })
+        .done(function (data) {
             $("#" + containerId).html(data);
-        }).fail(function() {
-            console.log("Error in ajax get request to /Administrator/ActiveContests");
+        })
+        .fail(function (data) {
+            console.log("Error in ajax get request. Details: " + JSON.stringify(data));
         });
     }
 
+    function processLanguage(containerId, httpMethod, actionUrl, passedData) {
+        $.ajax({ 
+            url:  actionUrl,
+            data: passedData
+        })
+        .done(function (data) {
+            var box = $("#" + containerId);
+            box.html(data);
+            $(document).on("submit", "#language-edit-form", function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/Administrator/EditLanguage",
+                    type: httpMethod,
+                    data: {
+                        'viewmodel.LanguageId': box.find("input:hidden[name='LanguageId']").val(),
+                        'viewmodel.LanguageName': box.find("input[name='LanguageName']").val()
+                    }
+                })
+                .done(function (data) {
+                    box.html(data);
+                })
+                .fail(function (data) {
+                    console.log("Error in ajax get request. Details: " + JSON.stringify(data));
+                });
+            });
+        })
+        .fail(function (data) {
+            console.log("Error in ajax get request. Details: " + JSON.stringify(data));
+        });
+    }     
 
+    function getLanguages(containerId) {
+        $.ajax({ url: "/Administrator/ProgrammingLanguages" })
+        .done(function (data) {
+            $("#" + containerId).html(data);
+            $("#" + containerId).on("click", "a", function () {
+                var action = $(this).attr("href");
+                if (action === "#add-language") {
+                    addLanguage(containerId);
+                } else if (action === "#edit-language") {
+                    var id = $(this).attr("id");
+                    editLanguage(containerId, id);
+                } else if (action === "#delete-language") {
+                    var id = $(this).attr("id");
+                    deleteLanguage(containerId, id);
+                }
+            });
+        })
+        .fail(function (data) {
+            console.log("Error in ajax get request. Details: " + JSON.stringify(data));
+        });
+    } 
+
+    function getUserForEdit(userId, containerId) {
+        $.ajax({
+            type: "get",
+            url: "/Administrator/EditUser",
+            data: {
+                "userId": userId
+            },
+            cache: false            
+        }).done(function (data) {
+            $("#" + containerId).html(data);
+
+            $(document).on("submit", "#user-edit-form", function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/Administrator/EditUser",
+                    type: "POST",
+                    data: {
+                        'viewmodel.Id': box.find("input:hidden[name='Id']").val(),
+                        "viewmodel.UserName": "",
+                        "viewmodel.Email": "",
+                        "viewmodel.NickName": box.find("input[name='NickName']").val(),
+                        "viewmodel.Password": box.find("input[name='Password']").val(),
+                        "viewmodel.PasswordConfirmation": box.find("input[name='PasswordConfirmation']").val()
+                    }
+                }).done(function (data) {
+                    console.log("success!");
+                }).fail(function (data) {
+                    console.log("Error in ajax get request to /Administrator/EditUser. Detail: " + JSON.stringify(data));
+                });
+            });
+        }).fail(function (data) {
+            console.log("Error in ajax get request to /Administrator/EditUser. Detail: " + JSON.stringify(data));
+        });
+    }
+
+    function getUsers(containerId) {
+        $.ajax({ url: "/Administrator/Users" }).done(function (data) {
+            $("#" + containerId).html(data);
+
+            $("#" + containerId).on("click", "a", function () {
+                var id = $(this).attr("id");
+
+                getUserForEdit(id, containerId);
+            });
+
+        }).fail(function (data) {
+            console.log("Error in ajax get request to /Administrator/Users. Detail: " + JSON.stringify(data));
+        });
+    }  
+
+    function getActiveContests(containerId) {
+
+        $.ajax({ url: "/Administrator/ActiveContests" }).done(function (data) {
+            $("#" + containerId).html(data);
+        }).fail(function () {
+            console.log("Error in ajax get request to /Administrator/ActiveContests");
+        });
+    }
+    
     function getAwaitingContests(containerId) {
 
-        $.ajax({ url: "/Administrator/AwaitingContests" }).done(function(data) {
+        $.ajax({ url: "/Administrator/AwaitingContests" }).done(function (data) {
             $("#" + containerId).html(data);
-        }).fail(function() { console.log("Error in ajax get request to /Administrator/AwaitingContests"); });
+        }).fail(function () { console.log("Error in ajax get request to /Administrator/AwaitingContests"); });
     }
 
     function createContestButton(buttonId) {
-        var button = $("#" + buttonId).button({ text: true }).click(function(event) {
+        var button = $("#" + buttonId).button({ text: true }).click(function (event) {
             event.preventDefault();
             var html = $("#addnew").html();
             if (html != "") {
@@ -113,11 +234,11 @@
                     resizable: false,
                     height: 160,
                     buttons: {
-                        "Удалить": function() {
+                        "Удалить": function () {
                             $(this).dialog("close");
                             addNewContestRequest();
                         },
-                        Cancel: function() {
+                        Cancel: function () {
                             $(this).dialog("close");
                         }
                     }
@@ -138,7 +259,7 @@
         $.ajax({
             type: "GET",
             url: "/Administrator/AddNewContest"
-        }).done(function(data) {
+        }).done(function (data) {
             $("#addnew").html(data);
 
             var taskCount = $("#addnew").find("input[name='TasksCount']").attr("readonly", true).spinner({
@@ -147,7 +268,7 @@
             });
             taskCount.spinner("value", 1);
 
-//            $("select.dropdown").selectmenu();
+            //            $("select.dropdown").selectmenu();
 
             $.validator.unobtrusive.parse($("#addnew"));
             $("#ContestBeginning").attr("readonly", "true").datetimepicker({
@@ -161,14 +282,14 @@
                 closeOnWithoutClick: true
             }).parent().css("margin-top", "3px");
             createAddButton(1, "tasks");
-        }).fail(function() {
+        }).fail(function () {
             console.log("Error in ajax get request to /Administrator/AddNewContest");
         });
     }
 
     function onSuccessCallback(elementId) {
         var counter = 0;
-        var timer = setInterval(function() {
+        var timer = setInterval(function () {
             counter++;
             if (counter == 3) {
                 $("#" + elementId).text(null);
@@ -183,7 +304,7 @@
     function createAddButton(panelnumber, containerId) {
         var anchor = $("<a>").addClass("button").attr("id", "button" + panelnumber);
         var container = $("#" + containerId).append(anchor);
-        anchor.button({ text: true }).click(function(event) {
+        anchor.button({ text: true }).click(function (event) {
             event.preventDefault();
             createTaskEditor(panelnumber);
             deleteAddButton(panelnumber);
@@ -192,7 +313,7 @@
         // check for error span absence and delete 
         var mas = $("#contestForm").find("span.taskscounterror");
         if (mas.lenght > 0) {
-            mas.each(function() {
+            mas.each(function () {
                 $(this).remove();
             });
         }
@@ -240,7 +361,7 @@
             });
         title.append(delButton);*/
 
-        $.get("/Administrator/OpenTaskEditor", function(data) {
+        $.get("/Administrator/OpenTaskEditor", function (data) {
             panel.html(data);
 
             var award = panel.find("input[name='TaskAward']").attr("readonly", true);
@@ -300,7 +421,7 @@
 
     function createDeleteButton(number) {
         var anchor = $("<a>").addClass("button").attr("id", "delButton" + number);
-        anchor.button({ text: true }).click(function(event) {
+        anchor.button({ text: true }).click(function (event) {
             event.preventDefault();
             deleteTaskEditor(number);
         }).text("Удалить задачу");
@@ -311,14 +432,14 @@
         var tasks = {};
         var index = 0;
         var contestForm = $("#contestForm");
-        contestForm.find(".task-panel").each(function() {
+        contestForm.find(".task-panel").each(function () {
             var current = $(this);
             var languages = [];
 
             var langlist = current.find("div.langlist").first();
             var checkboxes = langlist.find("input:checked");
             var counter = 0;
-            checkboxes.each(function() {
+            checkboxes.each(function () {
                 var checkboxName = $(this).attr("name");
                 var hidden = langlist.find("input:hidden[name='" + checkboxName + '.LanguageId' + "']");
                 var label = langlist.find("label[name='" + checkboxName + "']");
@@ -329,9 +450,7 @@
                     LanguageName: labelText
                 };
             });
-
             
-
             var currentTask = {
                 TaskComplexity: current.find("input[name='TaskComplexity']").val(),
                 TaskDuration: current.find("input[name='TaskDuration']").val(),
@@ -343,15 +462,14 @@
             };
             tasks[index++] = currentTask;
         });
-
-
+        
         var priorityId = $("#ContestPriorityId option:selected").attr("value");
         var dataToTransfer = {
             'viewmodel.TasksCount': contestForm.find("input[name='TasksCount']").val(),
             'viewmodel.ContestTitle': contestForm.find("input[name='ContestTitle']").val(),
             'viewmodel.ContestBeginning': contestForm.find("input[name='ContestBeginning']").val(),
             'viewmodel.TaskEditors': tasks,
-            'viewmodel.ContestPriorityId':priorityId
+            'viewmodel.ContestPriorityId': priorityId
         };
 
         $.ajax({
@@ -360,8 +478,8 @@
             data: dataToTransfer
         }).done(function (data) {
             if (data.Succeeded != null && data.Succeeded == true)
-                   displaySuccessfulMessage();
-        }).fail(function() {
+                displaySuccessfulMessage();
+        }).fail(function () {
             console.log("Error in ajax POST request to /Administrator/AddNewContest");
         });
     }
@@ -385,13 +503,13 @@
         } else {
             var span = $("#contestForm").find("span.taskscounterror");
             if (span.length > 0) {
-                span.each(function() {
+                span.each(function () {
                     $(this).remove();
                 });
             }
         }
         var pans = $(document).find(".task-panel");
-        $.each(pans, function() {
+        $.each(pans, function () {
             var panel = $(this);
             isVal = isVal && checkEditor(panel);
         });
@@ -403,7 +521,7 @@
         var counter = 0;
         var p = $("<p>").text("Создание контеста успешно завершено.");
         $("#addnew").append(p);
-        var timer = setInterval(function() {
+        var timer = setInterval(function () {
             counter++;
             if (counter == 3) {
                 p.text(null);
@@ -474,7 +592,7 @@
         }
 
 
-// comment validation
+        // comment validation
         var comment = selector.find("textarea[name='TaskComment']");
         comment.attr("data-val-range-max", 300);
 
@@ -551,8 +669,8 @@
         }
 
 
-/* $.validator.unobtrusive.parse($("#contestForm").html());
-        $("#contestForm").validate().form();*/
+        /* $.validator.unobtrusive.parse($("#contestForm").html());
+                $("#contestForm").validate().form();*/
         return isValid;
     }
 

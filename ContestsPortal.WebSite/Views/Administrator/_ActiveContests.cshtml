@@ -9,12 +9,26 @@
     <table class="table">
         <thead>
             <tr>
-                <th>@Html.DisplayNameFor(item => item.ContestTitle)</th>
-                <th>@Html.DisplayNameFor(item => item.ContestBeginning)</th>
-                <th>@Html.DisplayNameFor(item => item.ContestEnd)</th>
-                <th>@Html.DisplayNameFor(item => item.TasksCount)</th>
-                <th>@Html.DisplayNameFor(item => item.CompetitorsCount)</th>
-            </tr>
+            <th>
+                <span>Наименование контеста</span>
+            </th>
+            <th>
+                <span>Дата и время начала</span>
+            </th>
+            <th>
+                <span>Количество задач</span>
+            </th>
+            <th>
+                <span>Дата и время завершения контеста</span>
+            </th>
+            <th>
+            
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdContestState)
+            </th>
+            <th></th>
+        </tr>
         </thead>
         @foreach (var item in Model)
         {

@@ -1,0 +1,76 @@
+﻿@model ContestsPortal.Domain.Models.Contest
+
+@{
+    ViewBag.Title = "Детали соревнования";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+@section styles {
+    <link rel="stylesheet" href="@Url.Content("~/content/styles/validation.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/content/themes/base/all.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/content/styles/forms.css")" />
+}
+@section scripts
+{   
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+
+<h2>Детали соревнования</h2>
+
+<p>
+    <a href="#take-part"  class="button">Принять участие</a>     
+</p>
+
+<form class="smart-green">
+    <label>
+            <span>Наименование контеста</span>        
+        <div>
+            @Html.EditorFor(model => model.ContestTitle, new {htmlAttributes = new {@class="input"}})
+            @Html.ValidationMessageFor(model => model.ContestTitle, "", new {@class = "text-danger"})
+        </div>
+    </label>  
+
+    <label>
+        <span>Комментарий</span>
+        <div>
+            @Html.EditorFor(model => model.ContestComment, new {htmlAttributes = new {@class = "input"}})
+            @Html.ValidationMessageFor(model => model.ContestComment, "", new {@class = "text-danger"})
+        </div>
+    </label>
+
+    <label>
+        <span>Дата и время начала</span>
+        <div>
+            @Html.EditorFor(model => model.ContestBeginning, new {htmlAttributes = new {@class = "input"}})
+            @Html.ValidationMessageFor(model => model.ContestBeginning, "", new {@class = "text-danger"})
+        </div>
+    </label>
+
+    <label>
+        <span>Количество задач</span>
+        <div>
+            @Html.EditorFor(model => model.TasksCount, new {htmlAttributes = new {@class = "input"}})
+            @Html.ValidationMessageFor(model => model.TasksCount, "", new {@class = "text-danger"})
+        </div>
+    <label>
+
+    <label>
+        <span>Дата и время окончания</span>
+        <div>
+            @Html.EditorFor(model => model.ContestEnd, new {htmlAttributes = new {@class = "input"}})
+            @Html.ValidationMessageFor(model => model.ContestEnd, "", new {@class = "text-danger"})
+        </div>
+   </label>
+
+    <label>
+        <span>Количество участников</span>
+        <div>
+            @Html.EditorFor(model => model.CompetitorsCount, new {htmlAttributes = new {@class = "input"}})
+            @Html.ValidationMessageFor(model => model.CompetitorsCount, "", new {@class = "text-danger"})
+        </div>
+    </label>
+     <label><span>@Html.ActionLink("Назад", "ContestsHistory") </span> </label>
+</form>
+

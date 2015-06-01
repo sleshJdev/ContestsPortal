@@ -204,13 +204,16 @@
   <data name="TaskTitle" xml:space="preserve">
     <value>Наименование задачи</value>
   </data>
-  <data name="Username" xml:space="preserve">
-    <value>Имя пользователя</value>
-  </data>
   <data name="ContestCommentTitle" xml:space="preserve">
     <value>Комментарий к соревнованию</value>
   </data>
   <data name="ContestPriorityName" xml:space="preserve">
     <value>Тип соревнования</value>
+  </data>
+  <data name="LanguageName" xml:space="preserve">
+    <value>Название языка</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Имя пользователя</value>
   </data>
 </root>

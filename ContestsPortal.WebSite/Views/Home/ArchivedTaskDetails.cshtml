@@ -1,0 +1,50 @@
+﻿@model ContestsPortal.Domain.Models.ArchivedTask
+
+@{
+    ViewBag.Title = "ArchivedTaskDetails";
+}
+
+<h2>ArchivedTaskDetails</h2>
+
+<fieldset>
+    <legend>ArchivedTask</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TaskId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TaskId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TaskContent)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TaskContent)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TaskComplexity)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TaskComplexity)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TaskTitle)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TaskTitle)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IdTaskCategory)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdTaskCategory)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

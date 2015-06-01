@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FF5136F7-240B-4C1C-A73B-E5EE93B004DB}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{e3e379df-f4c6-4180-9b81-6769533abe47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ContestsPortal.WebSite</RootNamespace>
@@ -29,7 +29,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -121,6 +121,7 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web.DynamicData" />
@@ -129,8 +130,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -159,12 +158,12 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
@@ -315,6 +314,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\StringHtmlExtensions.cs" />
     <Compile Include="Infrastructure\ActionAttributes\NoCache.cs" />
     <Compile Include="Infrastructure\ActionAttributes\AjaxOnly.cs" />
     <Compile Include="Infrastructure\Binders\TimeSpanModelBinder.cs" />
@@ -336,10 +336,12 @@
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\SocialLoginViewModel.cs" />
+    <Compile Include="ViewModels\Account\UserViewModel.cs" />
     <Compile Include="ViewModels\Administrator\ContestEditorViewModel.cs" />
     <Compile Include="ViewModels\Administrator\ProgrammingLanguageViewModel.cs" />
     <Compile Include="ViewModels\Administrator\TaskEditorFormViewModel.cs" />
     <Compile Include="ViewModels\Administrator\TaskEditorViewModel.cs" />
+    <Compile Include="ViewModels\Home\ArchivedTaskViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -359,7 +361,6 @@
     <Content Include="Views\Shared\_SocialLogins.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Home\ContestsHistory.cshtml" />
     <Content Include="Views\Home\ArchivedTasks.cshtml" />
     <Content Include="Views\Home\CompetitorsRating.cshtml" />
     <Content Include="Views\Home\ContestResult.cshtml" />
@@ -369,6 +370,17 @@
     <Content Include="Views\Administrator\_AwaitingContests.cshtml" />
     <Content Include="Views\Administrator\_AddNewContest.cshtml" />
     <Content Include="Views\Administrator\_TaskEditor.cshtml" />
+    <Content Include="Views\Administrator\_Users.cshtml" />
+    <Content Include="Views\Administrator\_UserEdit.cshtml" />
+    <Content Include="Views\Administrator\_ProgrammingLanguages.cshtml" />
+    <Content Include="Views\Administrator\_ProgrammingLanguageEdit.cshtml" />
+    <Content Include="Views\Home\ContestsHistory.cshtml" />
+    <Content Include="Views\Home\ArchivedTasksDetails.cshtml" />
+    <Content Include="Views\Home\ArchivedTaskDetails.cshtml" />
+    <Content Include="Views\Home\ContestsDetails.cshtml" />
+    <Content Include="Views\Home\_Posts.cshtml" />
+    <Content Include="Views\Home\_PostDetails.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\StringTruncate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -381,7 +393,6 @@
     <Folder Include="Content\images\MSAccount\" />
     <Folder Include="Views\Judjment\" />
     <Folder Include="Views\Moderator\" />
-    <Folder Include="Views\Shared\DisplayTemplates\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
     <Folder Include="Views\Verification\" />
   </ItemGroup>

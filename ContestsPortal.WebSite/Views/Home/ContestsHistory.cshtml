@@ -1,8 +1,62 @@
-﻿
+﻿@model IEnumerable<ContestsPortal.Domain.Models.Contest>
+
 @{
-    ViewBag.Title = "ContestsHistory";
+    ViewBag.Title = "Архив соревнований";
     Layout = "~/Views/_Layout.cshtml";
 }
 
 <h2>Архив соревнований</h2>
 <hr />
+
+@if (Model != null && Model.Any())
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <span>Наименование контеста</span>
+                </th>
+                <th>
+                    <span>Дата и время начала</span>
+                </th>
+                <th>
+                    <span>Количество задач</span>
+                </th>
+                <th>
+                    <span>Дата и время завершения контеста</span>
+                </th>
+                <th>
+                    <span>Количество участников</span>
+                </th>                
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContestTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContestBeginning)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContestEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TasksCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompetitorsCount)
+                </td>
+                 <td>
+                    @Html.ActionLink("Подробнее", "ContestsDetails", new { contestId=item.ContestId })
+                </td>
+            </tr>
+        }
+    
+    </table>
+}
+else
+{<p>Архив соревнований пуст.</p>}

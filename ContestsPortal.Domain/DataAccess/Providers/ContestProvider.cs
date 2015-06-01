@@ -30,7 +30,7 @@ namespace ContestsPortal.Domain.DataAccess.Providers
         }
 
         #endregion
-
+        
         public Task<IList<Contest>> GetContestsByStateAsync(string contestState)
         {
             return Task<IList<Contest>>.Factory.StartNew(() =>
@@ -151,6 +151,30 @@ namespace ContestsPortal.Domain.DataAccess.Providers
                     return IdentityResult.Failed(e.Message);
                 }
             }
+        }
+
+        public Task<IList<Contest>> GetContestsAsync()
+        {
+            return Task<IList<Contest>>.Factory.StartNew(() =>
+            {
+                using (PortalContext context = _getContext())
+                {                     
+                    return context.Contests.ToList();
+                }
+            });
+        }
+
+        public Task<Contest> GetContest(int contestId)
+        {
+            return Task<Contest>.Factory.StartNew(() =>
+            {
+                using (PortalContext context = _getContext())
+                {
+
+                    Contest contest = context.Contests.Where(x => x.ContestId.Equals(contestId)).FirstOrDefault();
+                    return contest;
+                }
+            });
         }
     }
 }

@@ -18,7 +18,10 @@
             </div>
         </header>
         <div id="wrapper">
-            <div id="leftside"><h2>LEFTSIDE</h2></div>
+            <div id="leftside">
+                <h2>Новости</h2>
+                @{ Html.RenderAction("Posts", "Home"); }
+            </div>
             <div id="container">
                 @RenderBody()
             </div>

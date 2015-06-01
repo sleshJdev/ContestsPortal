@@ -210,4 +210,7 @@
   <data name="ContestCommentMaxLength" xml:space="preserve">
     <value>Длина комментария не должна превышать 300 символов</value>
   </data>
+  <data name="LanguageNameIsRequired" xml:space="preserve">
+    <value>Необходимо указать название языка</value>
+  </data>
 </root>

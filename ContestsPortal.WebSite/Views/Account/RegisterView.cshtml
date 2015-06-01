@@ -18,7 +18,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript" src="@Url.Content("~/Scripts/recaptchamethods.js")"></script>
     <script src="https://www.google.com/recaptcha/api.js?onload=callback&render=explicit" async defer></script>
-    }
+}
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

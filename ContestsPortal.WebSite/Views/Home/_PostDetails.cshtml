@@ -1,0 +1,28 @@
+﻿@model ContestsPortal.Domain.Models.Post
+
+@{
+    ViewBag.Title = "Новость";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+@section styles {
+    <link rel="stylesheet" href="@Url.Content("~/content/styles/validation.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/content/themes/base/all.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/content/styles/forms.css")" />
+}
+@section scripts
+{   
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+
+<form>
+    <h3>Новость от <span>@Html.DisplayFor(model => model.PublicationDate)</span></h3>
+    <div>
+        @Html.DisplayFor(model => model.PostContent)
+    </div>
+</form>
+<p>
+    @Html.ActionLink("Назад", "Index")
+</p>

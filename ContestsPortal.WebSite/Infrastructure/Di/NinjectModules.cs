@@ -15,6 +15,10 @@ namespace ContestsPortal.WebSite.Infrastructure.Di
     {
         public override void Load()
         {
+            Bind<IPostProvider>().To<PostProvider>().InThreadScope();
+            Bind<IArchivedTaskProvider>().To<ArchivedTaskProvider>().InThreadScope();
+            Bind<IProgrammingLanguageProvider>().To<ProgrammingLanguageProvider>().InThreadScope();
+            Bind<IUsersProvider>().To<UsersProvider>().InThreadScope();
             Bind<IContestsProvider>().To<ContestProvider>().InThreadScope();
             Bind<Func<PortalContext>>().ToMethod(x => (() => new PortalContext())).InThreadScope();
         }

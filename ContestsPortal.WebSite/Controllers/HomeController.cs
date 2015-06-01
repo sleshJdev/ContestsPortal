@@ -8,17 +8,38 @@ using ContestsPortal.Domain.DataAccess;
 using ContestsPortal.Domain.Models;
 using ContestsPortal.WebSite.Infrastructure.ActionAttributes;
 using Microsoft.Owin;
-using System.Web.Security;
-using System.Web.Configuration;
-using System.Data.SqlClient;
-using System.Diagnostics;
 using System;
+using ContestsPortal.Domain.DataAccess.Providers.Interfaces;
+using System.Diagnostics;
 
 namespace ContestsPortal.WebSite.Controllers
 {    
     [AllowAnonymous]
     public class HomeController : AsyncController
     {
+        private readonly IArchivedTaskProvider _archivedTaskProvider;
+        private readonly IContestsProvider _contestsProvider;
+        private readonly IPostProvider _postProvider;
+
+        #region Constructors
+
+        public HomeController()
+        {
+        }
+
+        public HomeController(IContestsProvider contestsProvider, IArchivedTaskProvider archivedTaskProvider, IPostProvider postProvider)
+        {
+            if (contestsProvider == null) throw new ArgumentNullException("contestsProvider");
+            if (archivedTaskProvider == null) throw new ArgumentNullException("archivedTaskProvider");
+            if (postProvider == null) throw new ArgumentNullException("postProvider");
+
+            _contestsProvider = contestsProvider;
+            _archivedTaskProvider = archivedTaskProvider;
+            _postProvider = postProvider;
+        }
+
+        #endregion Constructors
+
         public Task<ActionResult> Index()
         {
             return Task<ActionResult>.Factory.StartNew(() =>
@@ -32,26 +53,75 @@ namespace ContestsPortal.WebSite.Controllers
             }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
-        public Task<ActionResult> ContestsHistory()
+        public async Task<ActionResult> ContestsDetails(int contestId)
         {
-            return Task<ActionResult>.Factory.StartNew(() => { return View(); });
+            Contest contest = await _contestsProvider.GetContest(contestId);
+
+            Debug.WriteLine("HomeController.ContestsDetails. id: " + contestId + ", " + contest.Tasks.Count);
+
+            return View("ContestsDetails", contest);
         }
 
-
-        public Task<ActionResult> ArchivedTasks()
+        public async Task<ActionResult> ContestsHistory()
         {
-            return Task<ActionResult>.Factory.StartNew(() => { return View(); }, CancellationToken.None,
-                TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
+            IList<Contest> contests = await _contestsProvider.GetContestsAsync();
+
+            return View("ContestsHistory", contests);
+        }
+
+        public async Task<ActionResult> ArchivedTaskDetails(int taskId)
+        {
+            ArchivedTask task = await _archivedTaskProvider.GetArchivedTaskAsync(taskId);
+            Debug.WriteLine("HomeController.ArchivedTaskDetails. id: " + taskId);
+
+            return View("ArchivedTaskDetails", task);   
+        }
+        
+        public async Task<ActionResult> ArchivedTasks()
+        {
+            IList<ArchivedTask> tasks = await _archivedTaskProvider.GetAllArchivedTasksAsync();
+            Debug.WriteLine("HomeController.ArchivedTasks Count: " + tasks.Count);
+            tasks = new[]
+            {
+                new ArchivedTask(){TaskTitle = "ArchivedTask1", TaskContent = "ArchivedTask1 content", TaskComplexity = 5},
+                new ArchivedTask(){TaskTitle = "ArchivedTask2", TaskContent = "ArchivedTask2 content", TaskComplexity = 10},
+                new ArchivedTask(){TaskTitle = "ArchivedTask3", TaskContent = "ArchivedTask3 content", TaskComplexity = 15},
+                new ArchivedTask(){TaskTitle = "ArchivedTask4", TaskContent = "ArchivedTask4 content", TaskComplexity = 20},
+            };
+
+            return View("ArchivedTasks", tasks);           
         }
 
         [NoCache]
         [ChildActionOnly]
-        public ActionResult MainMenu()
+        public async Task<PartialViewResult> MainMenu()
         {
-            var list = DefineMainMenuRefs();
-            return View("MenuView", list);
+            var list = await DefineMainMenuRefs();
+            return PartialView("MenuView", list);
         }
 
+        [NoCache]
+        [ChildActionOnly]
+        public async Task<PartialViewResult> Posts()
+        {
+            IList<Post> posts = await _postProvider.GetAllPosts();
+            posts = new[]
+            {
+              new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now},
+              new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now},
+              new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now},
+              new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now}
+            };
+
+            return PartialView("_Posts", posts);
+        }
+
+        public async Task<ActionResult> PostDetails(int postId)
+        {
+            Post post = await _postProvider.GetPost(postId);
+
+            return View("_PostDetails", post);
+        }
 
         public Task<ActionResult> CompetitorsRating()
         {
@@ -75,63 +145,70 @@ namespace ContestsPortal.WebSite.Controllers
         #region Stuff
 
 
-        private IList<MenuItem> DefineMainMenuRefs()
+        private Task<IList<MenuItem>> DefineMainMenuRefs()
         {
-            List<MenuItem> list;
-            using (var context = new PortalContext())
-            {
-                list = context.Set<MenuItem>()
-                    .Include("SubItems")
-                    .Where(x => x.IdParentMenuItem == null && x.IdMenuItemCategory == 1)
-                    .OrderBy(x => x.OrderNumber)
-                    .ToList();
-                if (Request.IsAuthenticated)
+            return Task.Factory.StartNew<IList<MenuItem>>(() => {
+                List<MenuItem> list;
+                using (var context = new PortalContext())
                 {
-                    if (User.IsInRole(Roles.SuperAdministrator))
-                    {list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.SuperAdministrator)
-                                               || x.MinimalAccessibleRole.Equals(Roles.Administrator)
-                                               || x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
-                    return list;
-                    }
-                    
-
-                    if (User.IsInRole(Roles.Administrator))
-                    { list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.Administrator)
-                                               || x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
-                        return list;
-                    }
-
-                    if (User.IsInRole(Roles.Moderator))
+                    list = context.Set<MenuItem>()
+                        .Include("SubItems")
+                        .Where(x => x.IdParentMenuItem == null && x.IdMenuItemCategory == 1)
+                        .OrderBy(x => x.OrderNumber)
+                        .ToList();
+                    if (Request.IsAuthenticated)
                     {
-                        list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.Moderator)
-                                               || x.MinimalAccessibleRole.Equals(Roles.Member)
-                                               || x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
-                        return list;
-                    }
+                        if (User.IsInRole(Roles.SuperAdministrator))
+                        {
+                            list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.SuperAdministrator)
+                                                      || x.MinimalAccessibleRole.Equals(Roles.Administrator)
+                                                      || x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
+                            return list;
+                        }
 
-                    if (User.IsInRole(Roles.Judge))
-                    {list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.Judge)
-                                               || x.MinimalAccessibleRole.Equals(Roles.Member)
-                                               || x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
+
+                        if (User.IsInRole(Roles.Administrator))
+                        {
+                            list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.Administrator)
+                                                     || x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
+                            return list;
+                        }
+
+                        if (User.IsInRole(Roles.Moderator))
+                        {
+                            list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.Moderator)
+                                                   || x.MinimalAccessibleRole.Equals(Roles.Member)
+                                                   || x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
+                            return list;
+                        }
+
+                        if (User.IsInRole(Roles.Judge))
+                        {
+                            list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.Judge)
+                                                      || x.MinimalAccessibleRole.Equals(Roles.Member)
+                                                      || x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
+                            return list;
+                        }
+
+                        if (User.IsInRole(Roles.Competitor))
+                        {
+                            list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.Competitor)
+                                                     || x.MinimalAccessibleRole.Equals(Roles.Member)
+                                                     || x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
+                            return list;
+                        }
+
+                        if (User.IsInRole(Roles.Member))
+                        {
+                            list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.Member)
+                                                      || x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
+                            return list;
+                        }
+                    }
+                    else list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
                     return list;
-                    }
-
-                    if (User.IsInRole(Roles.Competitor))
-                    { list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.Competitor)
-                                               || x.MinimalAccessibleRole.Equals(Roles.Member)
-                                               || x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
-                        return list;
-                    }
-
-                    if (User.IsInRole(Roles.Member))
-                    {list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.Member)
-                                               || x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
-                        return list;
-                    }
                 }
-                else list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
-                return list;
-            }
+            });
         }
 
         #endregion

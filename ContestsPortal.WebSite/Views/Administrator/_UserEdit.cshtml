@@ -1,0 +1,55 @@
+﻿@model ContestsPortal.WebSite.ViewModels.Account.UserViewModel
+@section styles {
+    <link rel="stylesheet" href="@Url.Content("~/content/styles/validation.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/content/themes/base/all.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/content/styles/forms.css")" />
+}
+@section scripts
+{   
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+
+@using (Html.BeginForm("AddNewContest", "Administrator", FormMethod.Post, new{id="user-edit-form"}))  
+{
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+<form class="smart-green">
+    <h4>Редактирование пользователя <b>@Model.UserName</b></h4>
+    <hr />
+
+    @Html.EditorFor(model => model.Id)    
+
+    <label>
+        <span>@Html.LabelFor(model => model.NickName)</span>
+        <div>
+            @Html.EditorFor(model => model.NickName, new {htmlAttributes = new {@class = "input"}})
+            @Html.ValidationMessageFor(model => model.NickName, "", new {@class = "text-danger"})
+        </div>
+    </label>
+
+    <label>
+        <span>@Html.LabelFor(model => model.Password)</span>
+        <div>
+            @Html.PasswordFor(model => model.Password, new {htmlAttributes = new {@class = "input"}})
+            @Html.ValidationMessageFor(model => model.Password, "", new {@class = "text-danger"})
+        </div>
+    </label>
+
+    <label>
+        <span>@Html.LabelFor(model => model.PasswordConfirmation)</span>
+        <div>
+            @Html.PasswordFor(model => model.PasswordConfirmation, new {htmlAttributes = new {@class = "input"}})
+            @Html.ValidationMessageFor(model => model.PasswordConfirmation, "", new {@class = "text-danger"})
+        </div>
+    </label>
+    <p>
+        <input type="submit" value="Сохранить" />
+    </p>
+</form>
+}
+<div>
+    @Html.ActionLink("Назад", "Index")
+</div>

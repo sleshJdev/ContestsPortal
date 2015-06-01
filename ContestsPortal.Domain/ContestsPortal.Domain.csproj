@@ -21,7 +21,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin1\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -57,9 +57,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\Providers\ArchivedTaskProvider.cs" />
     <Compile Include="DataAccess\Providers\ContestProvider.cs" />
+    <Compile Include="DataAccess\Providers\Interfaces\IArchivedTaskProvider.cs" />
     <Compile Include="DataAccess\Providers\Interfaces\IContestsProvider.cs" />
+    <Compile Include="DataAccess\Providers\Interfaces\IPostProvider.cs" />
+    <Compile Include="DataAccess\Providers\Interfaces\IProgrammingLanguageProvider.cs" />
     <Compile Include="DataAccess\Providers\Interfaces\IProviderFactory.cs" />
+    <Compile Include="DataAccess\Providers\Interfaces\IUsersProvider.cs" />
+    <Compile Include="DataAccess\Providers\PostProvider.cs" />
+    <Compile Include="DataAccess\Providers\ProgrammingLanguageProvider.cs" />
+    <Compile Include="DataAccess\Providers\UsersProvider.cs" />
     <Compile Include="Models\ArchivedTask.cs" />
     <Compile Include="Models\ContestPriority.cs" />
     <Compile Include="Models\ContestState.cs" />

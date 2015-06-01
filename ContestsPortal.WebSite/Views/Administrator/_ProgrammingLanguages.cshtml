@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ContestsPortal.WebSite.ViewModels.Administrator.ProgrammingLanguageViewModel>
+
+<p>
+    <a href="#add-language">Добавить язык</a>
+</p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LanguageName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LanguageName)
+        </td>
+        <td>
+            <a href="#edit-language" id="@item.LanguageId">Редактировать</a>  |
+            <a href="#delete-language" id="@item.LanguageId">Удалить</a>           
+        </td>
+    </tr>
+}
+
+</table>
+<div>
+    @Html.ActionLink("Назад", "Index")
+</div>

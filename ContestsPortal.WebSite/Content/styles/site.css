@@ -186,3 +186,38 @@ a.button {
  .dropdown {
      font-size: 16px;
  }
+
+ body, input, textarea, select, button {
+	font-family: "Open Sans", "lucida grande", "Segoe UI", arial, verdana,
+		"lucida sans unicode", tahoma, sans-serif;
+	font-size: 15px;
+	color: rgb(61, 70, 77);
+	font-weight: normal;
+}
+
+h1, h3 {
+	text-align: center;
+	padding: 10px 0 5px 5px;
+}
+
+a:hover {
+	color: red;
+}
+
+.table {
+	border: none;
+	width: 100%;
+}
+
+.table-header th {
+	background-color: #DFF2BF;
+	color: black;
+}
+
+.table tr:nth-child(even) {
+	background: #ccc
+}
+
+.table tr:nth-child(odd) {
+	background: #fff
+}

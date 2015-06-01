@@ -1,9 +1,50 @@
-﻿
+﻿@model IEnumerable<ContestsPortal.Domain.Models.ArchivedTask>
+
 @{
-    ViewBag.Title = "ArchivedTasks";
+    ViewBag.Title = "Архив задач";
     Layout = "~/Views/_Layout.cshtml";
 }
 
 <h2>Хранилище задач</h2>
 <hr/>
+
+@if (Model != null && Model.Any())
+{
+
+    <table class="table">
+        <tr>               
+            <th>
+                @Html.DisplayNameFor(model => model.TaskComplexity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdTaskCategory)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>        
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskComplexity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdTaskCategory)
+            </td>
+            <td>
+                @Html.ActionLink("Подробнее", "ArchivedTaskDetails", new { taskId=item.TaskId })
+            </td>
+        </tr>
+    }
+
+    </table>
+
+}
+else
+{<p>Архив задач пуст.</p>}
 

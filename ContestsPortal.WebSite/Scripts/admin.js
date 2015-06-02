@@ -245,9 +245,6 @@
                         }
                     }
                 });
-                
-                
-
             } else {
                 addNewContestRequest();
             }
@@ -475,6 +472,8 @@
             'viewmodel.TaskEditors': tasks,
             'viewmodel.ContestPriorityId': priorityId
         };
+
+        console.log("dataToTransfer: " + JSON.stringify(dataToTransfer));
 
         $.ajax({
             url: "/Administrator/AddNewContest",

@@ -4,6 +4,14 @@
        var priorities = (ViewBag.ContestPriorities as SelectList);
        var k = 0;
    }
+
+@section scripts
+{   
+    <script src="~/Scripts/jquery-2.1.3.js"></script>
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script src="~/Scripts/ckeditor/adapters/jquery.js"></script>     
+}
+
 @using (Html.BeginForm("AddNewContest","Administrator",FormMethod.Post,new{id="contestForm"}))  
 {
     Html.EnableUnobtrusiveJavaScript(true);
@@ -42,15 +50,29 @@
                 @Html.EditorFor(model => model.ContestBeginning, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ContestBeginning, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>       
+
         <div class="form-group">
-            @Html.LabelFor(model => model.ContestComment, htmlAttributes: new { @class = "control-label col-md-2", id = "contestComment" })
+            @Html.LabelFor(model => model.ContestComment, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ContestComment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ContestComment, new { htmlAttributes = new { @class = "form-control", id = "contest-comment" } })
                 @Html.ValidationMessageFor(model => model.ContestComment, "", new { @class = "text-danger", style="display:block;" })
             </div>
         </div>
         <div id="tasks"></div>
         <input type="submit" id="createContest" value="Создать контест" class="btn btn-default"/>
-    </div>
+    </div>   
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        comentEditor = CKEDITOR.replace('contest-comment',
+        {
+            autoUpdateElement: true,
+            baseHref: '@Url.Content("~/Scripts/ckeditor/")',
+            filebrowserImageUploadUrl: '/Uploads/Upload'
+        });
+    });
+</script>
+
+

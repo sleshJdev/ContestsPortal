@@ -391,6 +391,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\images\MSAccount\" />
+    <Folder Include="Uploads\Upload\" />
     <Folder Include="ViewModels\Home\" />
     <Folder Include="Views\Judjment\" />
     <Folder Include="Views\Moderator\" />

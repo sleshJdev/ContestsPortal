@@ -1,4 +1,5 @@
 ﻿$(function () {
+    var comentEditor;
     getActiveContests("current");
     $("#tabs").tabs();
     
@@ -21,7 +22,7 @@
             case ("#tab-9"):
                 {
                     unbindButtonEvents("createButton");
-                    createContestButton("createButton");
+                    createContestButton("createButton");                    
                     $(document).on("submit", "#contestForm", function (e) {
                         e.preventDefault();
                         var result = doCustomValidation();
@@ -244,6 +245,8 @@
                         }
                     }
                 });
+                
+                
 
             } else {
                 addNewContestRequest();

@@ -64,7 +64,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.TaskContent, new { @class = "control-label col-md-4" })
         <div class="col-md-8">
-            @Html.EditorFor(model => model.TaskContent, new { htmlAttributes = new { @class = "form-control"} })
+            @Html.EditorFor(model => model.TaskContent, new { htmlAttributes = new { @class = "form-control", id="task-content-editor"} })
             @Html.ValidationMessageFor(model => model.TaskContent, "", new { @class = "text-danger", style="display:inline-block;"})
         </div>
     </div>
@@ -72,8 +72,25 @@
     <div class="form-group">
         @Html.LabelFor(model => model.TaskComment, new { @class = "control-label col-md-4" })
         <div class="col-md-8">
-            @Html.EditorFor(model => model.TaskComment, new { htmlAttributes = new { @class = "form-control"/*, form = "contestForm"*/ } })
+            @Html.EditorFor(model => model.TaskComment, new { htmlAttributes = new { @class = "form-control"/*, form = "contestForm"*/, id = "task-coment-editor" } })
             @Html.ValidationMessageFor(model => model.TaskComment, "", new { @class = "text-danger", style = "display:inline-block;" })
         </div>
     </div>
 </fieldset>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var taskComentEditor = CKEDITOR.replace('task-coment-editor',
+        {
+            autoUpdateElement: true,
+            baseHref: '@Url.Content("~/Scripts/ckeditor/")',
+            filebrowserImageUploadUrl: '/Uploads/Upload'
+        });
+        var taskContentEditor = CKEDITOR.replace('task-content-editor',
+        {
+            autoUpdateElement: true,
+            baseHref: '@Url.Content("~/Scripts/ckeditor/")',
+            filebrowserImageUploadUrl: '/Uploads/Upload'
+        });
+    });
+</script>

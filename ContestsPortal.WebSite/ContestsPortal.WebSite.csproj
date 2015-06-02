@@ -381,7 +381,7 @@
     <Content Include="Views\Administrator\_ProgrammingLanguages.cshtml" />
     <Content Include="Views\Administrator\_UserEdit.cshtml" />
     <Content Include="Views\Administrator\_Users.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\StringTruncate.cshtml" />
+    <Compile Include="Views\Shared\DisplayTemplates\StringExtensions.cs" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

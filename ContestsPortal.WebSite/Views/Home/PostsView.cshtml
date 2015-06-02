@@ -11,7 +11,12 @@
     <ul class="nav nav-sidebar">
     @foreach (var item in Model)
     {
-        <li><a href="@Url.Action("PostDetails", "Home", new {postId = item.PostId})">@item.PublicationDate</a></li>            
+        <li>
+        <a href="@Url.Action("PostDetails", "Home", new {postId = item.PostId})">
+                <span class="small">@item.PublicationDate.ToShortDateString()</span>
+                @Html.Raw(ContestsPortal.WebSite.Views.Shared.DisplayTemplates.StringExtensions.CutLongText(@item.PostTitle, 10, "..."))
+            </a>
+        </li>            
     }
     </ul>     
 }

@@ -1,17 +1,10 @@
 ﻿@using ContestsPortal.Domain.Models
 @model ContestsPortal.WebSite.ViewModels.Administrator.ContestEditorViewModel
-   @{
-       var priorities = (ViewBag.ContestPriorities as SelectList);
-       var k = 0;
-   }
-
-@section scripts
-{   
-    <script src="~/Scripts/jquery-2.1.3.js"></script>
-    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
-    <script src="~/Scripts/ckeditor/adapters/jquery.js"></script>     
+@{
+    var priorities = (ViewBag.ContestPriorities as SelectList);
+    var k = 0;
 }
-
+ 
 @using (Html.BeginForm("AddNewContest","Administrator",FormMethod.Post,new{id="contestForm"}))  
 {
     Html.EnableUnobtrusiveJavaScript(true);

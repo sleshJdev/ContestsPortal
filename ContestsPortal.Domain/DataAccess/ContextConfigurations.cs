@@ -100,6 +100,7 @@ namespace ContestsPortal.Domain.DataAccess
     {
         public PostConfiguration()
         {
+            Property(x => x.PostTitle).IsRequired();
             Property(x => x.PostContent).IsRequired();
             Property(x => x.PublicationDate).IsRequired().HasColumnType("datetime2");
         }

@@ -31,11 +31,20 @@ namespace ContestsPortal.Domain.DataAccess.Providers
         #endregion
 
         static Random gen = new Random();
-        Func<DateTime> generator = () =>
+        static Func<DateTime> generator = () =>
         {
             DateTime start = new DateTime(1995, 1, 1);
             int range = ((TimeSpan)(DateTime.Today - start)).Days;
             return start.AddDays(gen.Next(range));
+        };
+
+        static Post[] posts = new[]
+        {
+            new Post(){PostId = 1, PostTitle = "Title post 1", PostContent = "Very very very big post 1", PublicationDate = generator()},
+            new Post(){PostId = 2, PostTitle = "Title post 2", PostContent = "Very very very big post 2", PublicationDate = generator()},
+            new Post(){PostId = 3, PostTitle = "Title post 3", PostContent = "Very very very big post 3", PublicationDate = generator()},
+            new Post(){PostId = 4, PostTitle = "Title post 4", PostContent = "Very very very big post 4", PublicationDate = generator()},
+            new Post(){PostId = 5, PostTitle = "Title post 5", PostContent = "Very very very big post 4", PublicationDate = generator()}
         };
 
         public IList<Post> GetAllPosts()
@@ -43,14 +52,7 @@ namespace ContestsPortal.Domain.DataAccess.Providers
                 using (PortalContext context = _getContext())
                 {
                     //return context.Posts.ToList();
-                    return new[]
-                    {
-                      new Post(){PostContent = "Post 1", PublicationDate = generator()},
-                      new Post(){PostContent = "Post 2", PublicationDate = generator()},
-                      new Post(){PostContent = "Post 3", PublicationDate = generator()},
-                      new Post(){PostContent = "Post 4", PublicationDate = generator()},
-                      new Post(){PostContent = "Post 4", PublicationDate = generator()}
-                    };
+                    return posts;
                 }
         }
 
@@ -58,7 +60,8 @@ namespace ContestsPortal.Domain.DataAccess.Providers
         {
                 using (PortalContext context = _getContext())
                 {
-                    return context.Posts.Where(x => x.PostId.Equals(postId)).FirstOrDefault();
+                    //return context.Posts.Where(x => x.PostId.Equals(postId)).FirstOrDefault();
+                    return GetAllPosts().Where(x => x.PostId.Equals(postId)).FirstOrDefault();
                 }
         }
     }

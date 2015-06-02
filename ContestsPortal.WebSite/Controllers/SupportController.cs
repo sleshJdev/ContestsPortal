@@ -15,7 +15,6 @@ namespace ContestsPortal.WebSite.Controllers
             });
         }
            
-
         public Task<ActionResult> Faq()
         {
             return Task<ActionResult>.Factory.StartNew(() =>

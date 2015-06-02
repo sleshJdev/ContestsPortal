@@ -30,16 +30,26 @@ namespace ContestsPortal.Domain.DataAccess.Providers
 
         #endregion
 
+        static Random gen = new Random();
+        Func<DateTime> generator = () =>
+        {
+            DateTime start = new DateTime(1995, 1, 1);
+            int range = ((TimeSpan)(DateTime.Today - start)).Days;
+            return start.AddDays(gen.Next(range));
+        };
+
         public IList<Post> GetAllPosts()
         {
                 using (PortalContext context = _getContext())
                 {
+                    //return context.Posts.ToList();
                     return new[]
                     {
-                      new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now},
-                      new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now},
-                      new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now},
-                      new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now}
+                      new Post(){PostContent = "Post 1", PublicationDate = generator()},
+                      new Post(){PostContent = "Post 2", PublicationDate = generator()},
+                      new Post(){PostContent = "Post 3", PublicationDate = generator()},
+                      new Post(){PostContent = "Post 4", PublicationDate = generator()},
+                      new Post(){PostContent = "Post 4", PublicationDate = generator()}
                     };
                 }
         }

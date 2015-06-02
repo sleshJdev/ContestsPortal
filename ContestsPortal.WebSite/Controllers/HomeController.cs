@@ -13,13 +13,14 @@ using ContestsPortal.Domain.DataAccess.Providers.Interfaces;
 using System.Diagnostics;
 using Microsoft.AspNet.Identity;
 using ContestsPortal.WebSite.ViewModels.Administrator;
+using ContestsPortal.WebSite.ViewModels.Account;
 
 namespace ContestsPortal.WebSite.Controllers
 {
     [AllowAnonymous]
     public class HomeController : AsyncController
     {
-        private readonly IArchivedTaskProvider _archivedTaskProvider;
+        private readonly ITaskProvider _archivedTaskProvider;
         private readonly IContestsProvider _contestsProvider;
         private readonly IPostProvider _postProvider;
         private readonly IUsersProvider _usersProvider;
@@ -33,7 +34,7 @@ namespace ContestsPortal.WebSite.Controllers
         }
 
         public HomeController(IContestsProvider contestsProvider, 
-            IArchivedTaskProvider archivedTaskProvider, 
+            ITaskProvider archivedTaskProvider, 
             IPostProvider postProvider, 
             IUsersProvider usersProvider, 
             ICompetitorProvider competitorProvider)
@@ -65,7 +66,7 @@ namespace ContestsPortal.WebSite.Controllers
                 return View();
             }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
         }
-
+        
         //[Authorize]
         [HttpGet]
         [HttpPost, AjaxOnly]
@@ -91,11 +92,14 @@ namespace ContestsPortal.WebSite.Controllers
         public async Task<ActionResult> ContestsDetails(int contestId)
         {
             Contest contest = await _contestsProvider.GetContest(contestId);
-            
+            ContestEditorViewModel viewModel = new ContestEditorViewModel(contest);
+            viewModel.TaskEditors = contest.Tasks.Select(x => new TaskEditorViewModel(x)).ToList();
+            viewModel.Competitors = contest.Competitors.Select(x => new UserViewModel(x.UserProfile)).ToList();
+
             Debug.WriteLine("HomeController.ContestsDetails. id: " + contestId + ", " + contest.Tasks.Count + ", " + contest.TasksCount);
             Debug.WriteLine("Tasks: " + contest.Tasks.Count);
 
-            return View("ContestsDetails", contest);
+            return View("ContestsDetails", viewModel);
         }
 
         public async Task<ActionResult> ContestsHistory()
@@ -108,24 +112,21 @@ namespace ContestsPortal.WebSite.Controllers
 
         public async Task<ActionResult> ArchivedTaskDetails(int taskId)
         {
-            ArchivedTask task = await _archivedTaskProvider.GetArchivedTaskAsync(taskId);
+            ContestTask task = await _archivedTaskProvider.GetContestTaskAsync(taskId);
+            TaskEditorViewModel viewModel = new TaskEditorViewModel(task);
+            viewModel.Languages = task.Languages.Select(x => new ProgrammingLanguageViewModel(x)).ToList();
+
+            ViewBag.IsUseLayout = true;
+
             Debug.WriteLine("HomeController.ArchivedTaskDetails. id: " + taskId);
-            return View("ArchivedTaskDetails", new ArchivedTask() { TaskTitle = "ArchivedTask1", TaskContent = "ArchivedTask1 content", TaskComplexity = 5 });   
+            
+            return View("../Administrator/_TaskEditor", viewModel);   
         }
 
         public async Task<ActionResult> ArchivedTasks()
         {
-            IList<ArchivedTask> tasks = await _archivedTaskProvider.GetAllArchivedTasksAsync();
-           
-            //stub
-            tasks = new[]
-            {
-                new ArchivedTask(){TaskTitle = "ArchivedTask1", TaskContent = "ArchivedTask1 content", TaskComplexity = 5},
-                new ArchivedTask(){TaskTitle = "ArchivedTask2", TaskContent = "ArchivedTask2 content", TaskComplexity = 10},
-                new ArchivedTask(){TaskTitle = "ArchivedTask3", TaskContent = "ArchivedTask3 content", TaskComplexity = 15},
-                new ArchivedTask(){TaskTitle = "ArchivedTask4", TaskContent = "ArchivedTask4 content", TaskComplexity = 20},
-            };
-
+            IList<ContestTask> tasks = await _archivedTaskProvider.GetAllContestTasksAsync();
+            
             return View("ArchivedTasks", tasks);           
         }
 
@@ -152,9 +153,39 @@ namespace ContestsPortal.WebSite.Controllers
             return View("PostDetails", post);
         }
 
-        public Task<ActionResult> CompetitorsRating()
+        private static Competitor CreateaCompetitor(string fullName, string nickName, int ranking, int totalGrade)
         {
-            return Task<ActionResult>.Factory.StartNew(() => { return View(); });
+            return new Competitor()
+            {
+                UserProfile = new UserProfile()
+                {
+                    FullName = fullName,
+                    NickName = nickName
+                },
+                Ranking = ranking,
+                TotalGrade = totalGrade
+            };
+        }
+
+        public async Task<ActionResult> CompetitorsRating()
+        {
+            Random randomizer = new Random();
+
+            IList<Competitor> competitors = await _competitorProvider.GetAllCompretitorAsync();
+
+            int number = 0;
+            competitors.Add(CreateaCompetitor("Константиновпольский Константин Константинович", "Костя Цзю", (number = randomizer.Next(1, 20)), 100 - 3 * number));
+            competitors.Add(CreateaCompetitor("Алексей", "Алекс Цзю", (number = randomizer.Next(1, 20)), 100 - 3 * number));
+            competitors.Add(CreateaCompetitor("Петр Константинович", "Петя Цзю", (number = randomizer.Next(1, 20)), 100 - 3 * number));
+            competitors.Add(CreateaCompetitor("Валера Константинович", "Валера Цзю", (number = randomizer.Next(1, 20)), 100 - 3 * number));
+            competitors.Add(CreateaCompetitor("Рома Константинович", "Рома Цзю", (number = randomizer.Next(1, 20)), 100 - 3 * number));
+            competitors.Add(CreateaCompetitor("Маша Константиновна", "Маша Цзю", (number = randomizer.Next(1, 20)), 100 - 3 * number));
+            competitors.Add(CreateaCompetitor("Евгений Александрович", "slesh", (number = randomizer.Next(1, 20)), 100 - 3 * number));
+            competitors.Add(CreateaCompetitor("Виталий Александрович", "slesh123", (number = randomizer.Next(1, 20)), 100 - 3 * number));
+
+            competitors = competitors.OrderBy(x => x.Ranking).ToList();
+
+            return View(competitors); 
         }
 
         public Task<ActionResult> ContestResult(int? contestId)

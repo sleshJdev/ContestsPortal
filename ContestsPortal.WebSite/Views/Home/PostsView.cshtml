@@ -1,24 +1,19 @@
 ﻿@using ContestsPortal.WebSite.ViewModels.Account
 @model IEnumerable<ContestsPortal.Domain.Models.Post>
 
-
-@{
-    ViewBag.Title = "Новости";
-    Layout = "~/Views/_Layout.cshtml";
+@{     
+    Layout = null;
 }
 
-@section styles {
-    <link rel="stylesheet" href="@Url.Content("~/content/styles/validation.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/content/themes/base/all.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/content/styles/forms.css")" />
+@if (Model != null && Model.Any())
+{         
+    <h3>Новости от</h3>
+    <ul class="nav nav-sidebar">
+    @foreach (var item in Model)
+    {
+        <li><a href="@Url.Action("PostDetails", "Home", new {postId = item.PostId})">@item.PublicationDate</a></li>            
+    }
+    </ul>     
 }
-@section scripts
-{   
-    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-}
-
-<ul>
-     
-</ul>
+else
+{<p>Ноостей нет.</p>}

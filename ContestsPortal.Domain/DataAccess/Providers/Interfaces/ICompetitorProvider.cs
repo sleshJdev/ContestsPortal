@@ -10,6 +10,8 @@ namespace ContestsPortal.Domain.DataAccess.Providers.Interfaces
 {
     public interface ICompetitorProvider
     {
+        Task<IList<Competitor>> GetAllCompretitorAsync();
+
         Task<IdentityResult> AddCompretitor(Competitor competitor);        
     }
 }

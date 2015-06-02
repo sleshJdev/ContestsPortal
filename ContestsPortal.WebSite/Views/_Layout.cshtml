@@ -3,7 +3,7 @@
 <html>
     <head>
         <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/styles/site.css")"/>
-        <link type="text/css" rel="stylesheet" href="~/Content/styles/bootstrap.css"/>
+        <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/styles/bootstrap.css")"/>
         <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/styles/webfonts.css")" />
         @RenderSection("styles",false)
         <meta name="viewport" content="width=device-width" />
@@ -15,21 +15,36 @@
                 <div id="entry">@{ Html.RenderAction("EntryPartial","Account");}</div>
             </div>
             <div id="menu">
-                @{ Html.RenderAction("MainMenu", "Home"); }                            
+               @{ Html.RenderAction("MainMenu", "Home"); }                       
             </div>
         </header>
         <div id="wrapper">
-            <div id="leftside">
-                <h2>Новости</h2>          
+            <div id="leftside" class="fixed">        
                     
             </div>
             <div id="container">
                 @RenderBody()
             </div>
         </div>
-        <footer></footer>
+        <!-- Site footer -->
+        <footer class="footer">
+        <p>&copy; Company 2014</p>
+        </footer>
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/jqueryajax")
         @RenderSection("scripts", false)
+        <script type="text/javascript">
+            $(function () {
+                $.ajax({
+                    url: "/Home/Posts",                 
+                })
+                .done(function (data) {
+                    $("#leftside").html(data);
+                })
+                .fail(function (data) {
+                    console.log("Error in ajax get request. Details: " + JSON.stringify(data));
+                });
+            });
+        </script> 
     </body>
 </html>

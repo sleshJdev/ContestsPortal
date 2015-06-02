@@ -22,6 +22,8 @@ namespace ContestsPortal.WebSite.ViewModels.Administrator
             _task = task;
         }
 
+        public int? TaskId { get { return _task.TaskId; } set { _task.TaskId = value ?? 0; } }
+
         [DataType(DataType.Text)]
         [Display(ResourceType = typeof(CommonResources), Name = "TaskComplexity")] 
         [Required(ErrorMessageResourceType = typeof(ValidationResources),ErrorMessageResourceName = "TaskComplexityRequired")]

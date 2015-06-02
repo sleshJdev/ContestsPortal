@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using ContestsPortal.Domain.Models;
+using ContestsPortal.WebSite.ViewModels.Account;
 
 namespace ContestsPortal.WebSite.ViewModels.Administrator
 {
@@ -56,7 +57,9 @@ namespace ContestsPortal.WebSite.ViewModels.Administrator
         [Required(ErrorMessageResourceType = typeof (ValidationResources),ErrorMessageResourceName = "ContestBeginningRequired")]
         public DateTime? ContestBeginning { get { return _contest.ContestBeginning; } set { _contest.ContestBeginning = value; } }
 
-        public List<TaskEditorViewModel> TaskEditors { get; set; }
+        public IList<UserViewModel> Competitors { get; set; }
+
+        public IList<TaskEditorViewModel> TaskEditors { get; set; }
 
         #endregion
     }

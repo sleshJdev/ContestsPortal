@@ -17,7 +17,7 @@ namespace ContestsPortal.WebSite.Infrastructure.Di
         {
             Bind<ICompetitorProvider>().To<CompetitorProvider>().InThreadScope();
             Bind<IPostProvider>().To<PostProvider>().InThreadScope();
-            Bind<IArchivedTaskProvider>().To<ArchivedTaskProvider>().InThreadScope();
+            Bind<ITaskProvider>().To<TaskProvider>().InThreadScope();
             Bind<IProgrammingLanguageProvider>().To<ProgrammingLanguageProvider>().InThreadScope();
             Bind<IUsersProvider>().To<UsersProvider>().InThreadScope();
             Bind<IContestsProvider>().To<ContestProvider>().InThreadScope();

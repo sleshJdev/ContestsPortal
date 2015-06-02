@@ -169,8 +169,9 @@ namespace ContestsPortal.Domain.DataAccess.Providers
             return Task<Contest>.Factory.StartNew(() =>
             {
                 using (PortalContext context = _getContext())
-                {                   
-                    Contest contest = context.Contests.Where(x => x.ContestId.Equals(contestId)).Include("Tasks").FirstOrDefault();
+                {
+                    Contest contest = context.Contests.Where(x => x.ContestId.Equals(contestId)).Include("Tasks").Include("Competitors").FirstOrDefault();
+                                       
                     return contest;
                 }
             });

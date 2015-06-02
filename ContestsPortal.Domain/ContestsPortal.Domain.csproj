@@ -57,10 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess\Providers\ArchivedTaskProvider.cs" />
+    <Compile Include="DataAccess\Providers\TaskProvider.cs" />
     <Compile Include="DataAccess\Providers\CompetitorProvider.cs" />
     <Compile Include="DataAccess\Providers\ContestProvider.cs" />
-    <Compile Include="DataAccess\Providers\Interfaces\IArchivedTaskProvider.cs" />
+    <Compile Include="DataAccess\Providers\Interfaces\ITaskProvider.cs" />
     <Compile Include="DataAccess\Providers\Interfaces\ICompetitorProvider.cs" />
     <Compile Include="DataAccess\Providers\Interfaces\IContestsProvider.cs" />
     <Compile Include="DataAccess\Providers\Interfaces\IPostProvider.cs" />

@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ContestsPortal.Domain.DataAccess.Providers.Interfaces
 {
-    public interface IArchivedTaskProvider
+    public interface ITaskProvider
     {
-        Task<IList<ArchivedTask>> GetAllArchivedTasksAsync();
+        Task<IList<ContestTask>> GetAllContestTasksAsync();
 
-        Task<ArchivedTask> GetArchivedTaskAsync(int taskId);
+        Task<ContestTask> GetContestTaskAsync(int taskId);
     }
 }

@@ -10,6 +10,7 @@ using ContestsPortal.WebSite.App_Start;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using MenuItem = ContestsPortal.Domain.Models.MenuItem;
+using System;
 
 namespace ContestsPortal.WebSite
 {
@@ -63,6 +64,7 @@ namespace ContestsPortal.WebSite
             Debug.WriteLine("End seeding.");
         }
 
+         
 
         private static void InitContestPriorities(PortalContext context)
         {

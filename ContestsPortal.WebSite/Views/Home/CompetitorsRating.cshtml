@@ -1,8 +1,41 @@
-﻿
+﻿@model IEnumerable<ContestsPortal.Domain.Models.Competitor>
+
 @{
-    ViewBag.Title = "CompetitorsRating";
+    ViewBag.Title = "Рейтинг участников";
     Layout = "~/Views/_Layout.cshtml";
 }
 
 <h2>Рейтинг участников</h2>
 <hr />
+<table class="table">
+    <tr>
+        <th>Имя</th>
+        <th>
+            Никнэйм
+        </th>
+        <th>
+            Позиция
+        </th>
+        <th>            
+            Общая оценка
+        </th>       
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserProfile.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserProfile.NickName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ranking)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalGrade)
+        </td>        
+    </tr>
+}
+
+</table>

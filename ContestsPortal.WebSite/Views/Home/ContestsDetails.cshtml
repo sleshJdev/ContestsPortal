@@ -12,12 +12,6 @@
     <link rel="stylesheet" href="@Url.Content("~/content/styles/forms.css")" />
 }
 
-@section scripts
-{ 
-    <script type="text/javascript" src="~/Scripts/jquery-2.1.3.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/take-part.js"></script>
-}
-
 <h2>Детали соревнования</h2>
 
 <p>
@@ -79,15 +73,15 @@
         <tr>               
             <th>Сложность</th>
             <th>Название</th>
-            <th>Категория</th>
+            <th>Продолжительность</th>
             <th></th>
         </tr>
 
-        @foreach (var item in Model.Tasks) {
+        @foreach (var item in Model.TaskEditors) {
             <tr>        
-                <td>@Html.DisplayFor(modelItem => item.ArchivedTask.TaskComplexity)</td>
+                <td>@Html.DisplayFor(modelItem => item.TaskComplexity)</td>
                 <td>@Html.DisplayFor(modelItem => item.TaskTitle)</td>
-                <td>@Html.DisplayFor(modelItem => item.ArchivedTask.IdTaskCategory)</td>
+                <td>@Html.DisplayFor(modelItem => item.TaskDuration)</td>
                 <td>@Html.ActionLink("Подробнее", "ArchivedTaskDetails", new { taskId=item.TaskId })</td>
             </tr>
         }
@@ -106,13 +100,13 @@
         @foreach (var item in Model.Competitors) {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserProfile.UserName)
+                    @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserProfile.Email)
+                    @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserProfile.NickName)
+                    @Html.DisplayFor(modelItem => item.NickName)
                 </td>                 
             </tr>
         }

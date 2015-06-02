@@ -1,4 +1,5 @@
 ﻿using ContestsPortal.Domain.DataAccess.Providers.Interfaces;
+using ContestsPortal.Domain.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace ContestsPortal.Domain.DataAccess.Providers
 
         #endregion
 
-        public Task<Microsoft.AspNet.Identity.IdentityResult> AddCompretitor(Models.Competitor competitor)
+        public Task<Microsoft.AspNet.Identity.IdentityResult> AddCompretitor(Competitor competitor)
         {
             return Task<IdentityResult>.Factory.StartNew(() =>
             {
@@ -46,6 +47,19 @@ namespace ContestsPortal.Domain.DataAccess.Providers
                     {
                         return IdentityResult.Failed(new[] { e.ToString() });
                     }
+                }
+            });
+        }
+
+        public Task<IList<Competitor>> GetAllCompretitorAsync()
+        {
+            return Task<IList<Competitor>>.Factory.StartNew(() =>
+            {
+                using (PortalContext context = _getContext())
+                {
+                    IList<Competitor> competitors = context.Competitors.ToList();
+
+                    return competitors;
                 }
             });
         }

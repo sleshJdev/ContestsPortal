@@ -10,7 +10,6 @@ using ContestsPortal.WebSite.App_Start;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using MenuItem = ContestsPortal.Domain.Models.MenuItem;
-using System;
 
 namespace ContestsPortal.WebSite
 {
@@ -52,7 +51,7 @@ namespace ContestsPortal.WebSite
         public static void DoInitialization(PortalContext context)
         {
             Debug.WriteLine("Begin seeding.");
-            InitTaskCategories(context);            
+            InitTaskCategories(context);
             InitContestPriorities(context);
             InitContestStates(context);
             InitMenuItemCategories(context);
@@ -61,22 +60,9 @@ namespace ContestsPortal.WebSite
             InitFeedbackTypes(context);
             InitCountries(context);
             InitRolesAndAdminProfile(context);
-            //InitArcgivedTasks(context);
-            //InitPostsPriorities(context);
             Debug.WriteLine("End seeding.");
         }
 
-        private static void InitPostsPriorities(PortalContext context)
-        {
-            var posts = new[]
-            {
-              new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now},
-              new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now},
-              new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now},
-              new Post(){PostContent = "Олимпиада bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", PublicationDate = DateTime.Now}
-            };
-            context.Set<Post>().AddOrUpdate(posts);
-        }
 
         private static void InitContestPriorities(PortalContext context)
         {
@@ -89,19 +75,7 @@ namespace ContestsPortal.WebSite
             };
             context.Set<ContestPriority>().AddOrUpdate(x=>x.ContestPriorityName,priorities);
         }
-
-        private static void InitArcgivedTasks(PortalContext context)
-        {
-            var tasks = new[]
-            {
-                new ArchivedTask(){TaskTitle = "ArchivedTask1", TaskContent = "ArchivedTask1 content", TaskComplexity = 5},
-                new ArchivedTask(){TaskTitle = "ArchivedTask2", TaskContent = "ArchivedTask2 content", TaskComplexity = 10},
-                new ArchivedTask(){TaskTitle = "ArchivedTask3", TaskContent = "ArchivedTask3 content", TaskComplexity = 15},
-                new ArchivedTask(){TaskTitle = "ArchivedTask4", TaskContent = "ArchivedTask4 content", TaskComplexity = 20},
-            };
-            context.Set<ArchivedTask>().AddOrUpdate(tasks);
-        }
-
+        
 
         private static void InitContestStates(PortalContext context)
         {

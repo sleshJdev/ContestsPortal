@@ -1,6 +1,7 @@
 ﻿$(function () {
     getActiveContests("current");
     $("#tabs").tabs();
+    
     $("#internaltabs").tabs();
     $("#internaltabs").on("click", "a", function () {
         var id = $(this).attr("href");
@@ -308,7 +309,7 @@
             event.preventDefault();
             createTaskEditor(panelnumber);
             deleteAddButton(panelnumber);
-        }).text("Добавить задачу").width(110).height(15).css("padding-top", "9px").css("height", "20px");
+        }).text("Добавить задачу").width(150).height(25);
 
         // check for error span absence and delete 
         var mas = $("#contestForm").find("span.taskscounterror");

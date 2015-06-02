@@ -12,10 +12,11 @@ using System;
 using ContestsPortal.Domain.DataAccess.Providers.Interfaces;
 using System.Diagnostics;
 using Microsoft.AspNet.Identity;
+using ContestsPortal.WebSite.ViewModels.Administrator;
 
 namespace ContestsPortal.WebSite.Controllers
-{    
-    //[AllowAnonymous]
+{
+    [AllowAnonymous]
     public class HomeController : AsyncController
     {
         private readonly IArchivedTaskProvider _archivedTaskProvider;
@@ -90,15 +91,7 @@ namespace ContestsPortal.WebSite.Controllers
         public async Task<ActionResult> ContestsDetails(int contestId)
         {
             Contest contest = await _contestsProvider.GetContest(contestId);
-
-            contest.Tasks = new[]            
-            {
-                new ContestTask(){TaskTitle = "ArchivedTask1", TaskContent = "ArchivedTask1 content", TaskComplexity = 5},
-                new ContestTask(){TaskTitle = "ArchivedTask2", TaskContent = "ArchivedTask2 content", TaskComplexity = 10},
-                new ContestTask(){TaskTitle = "ArchivedTask3", TaskContent = "ArchivedTask3 content", TaskComplexity = 15},
-                new ContestTask(){TaskTitle = "ArchivedTask4", TaskContent = "ArchivedTask4 content", TaskComplexity = 20},
-            }.ToList();
-
+            
             Debug.WriteLine("HomeController.ContestsDetails. id: " + contestId + ", " + contest.Tasks.Count + ", " + contest.TasksCount);
             Debug.WriteLine("Tasks: " + contest.Tasks.Count);
 
@@ -108,8 +101,9 @@ namespace ContestsPortal.WebSite.Controllers
         public async Task<ActionResult> ContestsHistory()
         {
             IList<Contest> contests = await _contestsProvider.GetContestsAsync();
+            IList<ContestEditorViewModel> contestsViewMode = contests.Select(x => new ContestEditorViewModel(x)).ToList();
 
-            return View("ContestsHistory", contests);
+            return View("ContestsHistory", contestsViewMode);
         }
 
         public async Task<ActionResult> ArchivedTaskDetails(int taskId)
@@ -137,25 +131,23 @@ namespace ContestsPortal.WebSite.Controllers
 
         [NoCache]
         [ChildActionOnly]
-        public async Task<ActionResult> MainMenu()
+        public ActionResult MainMenu()
         {
-            var list = await DefineMainMenuRefs();
+            var list = DefineMainMenuRefs();
 
             return View("MenuView", list);
         }
-
-        [NoCache]
-        [ChildActionOnly]
-        public async Task<ActionResult> Posts()
+                
+        public ActionResult Posts()
         {
-            IList<Post> posts = await _postProvider.GetAllPosts();
+            IList<Post> posts = _postProvider.GetAllPosts();
 
-            return View("Posts", posts);
+            return View("PostsView", posts);
         }
 
-        public async Task<ActionResult> PostDetails(int postId)
+        public ActionResult PostDetails(int postId)
         {
-            Post post = await _postProvider.GetPost(postId);
+            Post post =  _postProvider.GetPost(postId);
 
             return View("PostDetails", post);
         }
@@ -182,9 +174,8 @@ namespace ContestsPortal.WebSite.Controllers
         #region Stuff
 
 
-        private Task<IList<MenuItem>> DefineMainMenuRefs()
+        private IList<MenuItem> DefineMainMenuRefs()
         {
-            return Task.Factory.StartNew<IList<MenuItem>>(() => {
                 List<MenuItem> list;
                 using (var context = new PortalContext())
                 {
@@ -245,7 +236,6 @@ namespace ContestsPortal.WebSite.Controllers
                     else list = list.Where(x => x.MinimalAccessibleRole.Equals(Roles.Guest)).ToList();
                     return list;
                 }
-            });
         }
 
         #endregion

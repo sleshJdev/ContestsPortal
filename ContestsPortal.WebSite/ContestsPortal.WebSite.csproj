@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FF5136F7-240B-4C1C-A73B-E5EE93B004DB}</ProjectGuid>
-    <ProjectTypeGuids>{e3e379df-f4c6-4180-9b81-6769533abe47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ContestsPortal.WebSite</RootNamespace>
@@ -29,7 +29,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -179,6 +179,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\ContestsStore.mdf" />
+    <Content Include="App_Data\ContestsStore_log.ldf">
+      <DependentUpon>ContestsStore.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\images\Facebook\facebook-68.png" />
     <Content Include="Content\images\Facebook\facebook.png" />
     <Content Include="Content\images\Facebook\facebook2-68.png" />
@@ -286,6 +290,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\recaptchamethods.js" />
+    <Content Include="Scripts\take-part.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -314,7 +319,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\StringHtmlExtensions.cs" />
     <Compile Include="Infrastructure\ActionAttributes\NoCache.cs" />
     <Compile Include="Infrastructure\ActionAttributes\AjaxOnly.cs" />
     <Compile Include="Infrastructure\Binders\TimeSpanModelBinder.cs" />
@@ -324,7 +328,6 @@
     <Compile Include="Infrastructure\DataAttributes\PhoneNumberAttribute.cs" />
     <Compile Include="Infrastructure\DataAttributes\RequiredIfNull.cs" />
     <Compile Include="Infrastructure\ErrorsLocalizer.cs" />
-    <Content Include="Scripts\take-part.js" />
     <Compile Include="ViewModels\Account\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="ViewModels\Account\SendCodeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -362,6 +365,7 @@
     <Content Include="Views\Shared\_SocialLogins.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Home\ContestsHistory.cshtml" />
     <Content Include="Views\Home\ArchivedTasks.cshtml" />
     <Content Include="Views\Home\CompetitorsRating.cshtml" />
     <Content Include="Views\Home\ContestResult.cshtml" />
@@ -371,16 +375,14 @@
     <Content Include="Views\Administrator\_AwaitingContests.cshtml" />
     <Content Include="Views\Administrator\_AddNewContest.cshtml" />
     <Content Include="Views\Administrator\_TaskEditor.cshtml" />
-    <Content Include="Views\Administrator\_Users.cshtml" />
-    <Content Include="Views\Administrator\_UserEdit.cshtml" />
-    <Content Include="Views\Administrator\_ProgrammingLanguages.cshtml" />
-    <Content Include="Views\Administrator\_ProgrammingLanguageEdit.cshtml" />
-    <Content Include="Views\Home\ContestsHistory.cshtml" />
     <Content Include="Views\Home\ArchivedTaskDetails.cshtml" />
     <Content Include="Views\Home\ContestsDetails.cshtml" />
-    <Content Include="Views\Home\Posts.cshtml" />
     <Content Include="Views\Home\PostDetails.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\StringTruncate.cshtml" />
+    <Content Include="Views\Home\PostsView.cshtml" />
+    <Content Include="Views\Administrator\_ProgrammingLanguageEdit.cshtml" />
+    <Content Include="Views\Administrator\_ProgrammingLanguages.cshtml" />
+    <Content Include="Views\Administrator\_UserEdit.cshtml" />
+    <Content Include="Views\Administrator\_Users.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -389,10 +391,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\images\MSAccount\" />
     <Folder Include="Views\Judjment\" />
     <Folder Include="Views\Moderator\" />
+    <Folder Include="Views\Shared\DisplayTemplates\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
     <Folder Include="Views\Verification\" />
   </ItemGroup>

@@ -9,8 +9,8 @@ namespace ContestsPortal.Domain.DataAccess.Providers.Interfaces
 {
     public interface IPostProvider
     {
-        Task<IList<Post>> GetAllPosts();
+        IList<Post> GetAllPosts();
 
-        Task<Post> GetPost(int postId);
+        Post GetPost(int postId);
     }
 }

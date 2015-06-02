@@ -9,8 +9,6 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using ContestsPortal.Domain.DataAccess;
-using ContestsPortal.Domain.Models;
 using ContestsPortal.WebSite.App_Start;
 using ContestsPortal.WebSite.Infrastructure;
 using ContestsPortal.WebSite.Infrastructure.ActionAttributes;
@@ -19,9 +17,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Newtonsoft.Json.Linq;
-using ContestsPortal.Domain.DataAccess.Providers.Interfaces;
 using ContestsPortal.WebSite.ViewModels.Administrator;
 using System.Diagnostics;
+using ContestsPortal.Domain.Models;
+using ContestsPortal.Domain.DataAccess;
+using ContestsPortal.Domain.DataAccess.Providers.Interfaces;
 
 namespace ContestsPortal.WebSite.Controllers
 {

@@ -151,15 +151,6 @@ namespace ContestsPortal.WebSite {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Необходимо указать название языка.
-        /// </summary>
-        public static string LanguageNameIsRequired {
-            get {
-                return ResourceManager.GetString("LanguageNameIsRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Необходимо указать никнейм.
         /// </summary>
         public static string NickNameIsRequired {

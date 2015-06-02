@@ -216,4 +216,10 @@
   <data name="Username" xml:space="preserve">
     <value>Имя пользователя</value>
   </data>
+  <data name="CompetitorsCount" xml:space="preserve">
+    <value>Количество участников</value>
+  </data>
+  <data name="ContestEnd" xml:space="preserve">
+    <value>Дата и время окончания</value>
+  </data>
 </root>

@@ -11,7 +11,7 @@ using Ninject.Web.Mvc;
 
 namespace ContestsPortal.WebSite.Infrastructure.Di
 {
-    public class RepositoriesModule: MvcModule
+    public class RepositoriesModule : MvcModule
     {
         public override void Load()
         {
@@ -26,11 +26,11 @@ namespace ContestsPortal.WebSite.Infrastructure.Di
     }
 
 
-    public class InfrastructureModule: MvcModule
+    public class InfrastructureModule : MvcModule
     {
         public override void Load()
         {
-            
+
 
         }
     }

@@ -79,6 +79,15 @@ namespace ContestsPortal.WebSite {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Количество участников.
+        /// </summary>
+        public static string CompetitorsCount {
+            get {
+                return ResourceManager.GetString("CompetitorsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Дата и время начала.
         /// </summary>
         public static string ContestBeginning {
@@ -93,6 +102,15 @@ namespace ContestsPortal.WebSite {
         public static string ContestCommentTitle {
             get {
                 return ResourceManager.GetString("ContestCommentTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата и время окончания.
+        /// </summary>
+        public static string ContestEnd {
+            get {
+                return ResourceManager.GetString("ContestEnd", resourceCulture);
             }
         }
         

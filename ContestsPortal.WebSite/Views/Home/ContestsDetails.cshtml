@@ -1,4 +1,5 @@
-﻿@model ContestsPortal.Domain.Models.Contest
+﻿@using ContestsPortal.Domain.Models
+@model ContestsPortal.WebSite.ViewModels.Administrator.ContestEditorViewModel
 
 @{
     ViewBag.Title = "Детали соревнования";
@@ -70,7 +71,7 @@
             <input type="text" name="CompetitorsCount" value="@Model.CompetitorsCount" class="input"/>
             @Html.ValidationMessageFor(model => model.CompetitorsCount, "", new {@class = "text-danger"})
         </div>
-    </label>
+    </label>     
 <div style="padding-top: 20px; margin-bottom: 20px;">
     <h3>Задачи</h3>
     <hr />       
@@ -88,6 +89,31 @@
                 <td>@Html.DisplayFor(modelItem => item.TaskTitle)</td>
                 <td>@Html.DisplayFor(modelItem => item.ArchivedTask.IdTaskCategory)</td>
                 <td>@Html.ActionLink("Подробнее", "ArchivedTaskDetails", new { taskId=item.TaskId })</td>
+            </tr>
+        }
+    </table>          
+</div>
+<div style="padding-top: 20px; margin-bottom: 20px;">
+    <h3>Участники</h3>
+    <hr />       
+    <table class="table">
+        <tr>               
+            <th>Имя участника</th>
+            <th>Емайл</th>
+            <th>Никнэйм</th>
+        </tr>
+
+        @foreach (var item in Model.Competitors) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserProfile.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserProfile.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserProfile.NickName)
+                </td>                 
             </tr>
         }
     </table>          

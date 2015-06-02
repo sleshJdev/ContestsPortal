@@ -34,7 +34,6 @@ namespace ContestsPortal.WebSite.ViewModels.Administrator
         [HiddenInput(DisplayValue = false)]
         public int LanguageId { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(ValidationResources), ErrorMessageResourceName = "LanguageNameIsRequired")]
         [Display(ResourceType = typeof(CommonResources), Name = "LanguageName")]
         public string LanguageName { get; set; }
         

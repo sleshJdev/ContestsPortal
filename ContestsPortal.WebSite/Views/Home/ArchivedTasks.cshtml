@@ -10,40 +10,24 @@
 
 @if (Model != null && Model.Any())
 {
-
     <table class="table">
         <tr>               
-            <th>
-                @Html.DisplayNameFor(model => model.TaskComplexity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TaskTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ArchivedTask.IdTaskCategory)
-            </th>
+            <th>Сложность задачи</th>
+            <th>Название</th>
+            <th>Категория</th>
             <th></th>
         </tr>
 
-    @foreach (var item in Model) {
-        <tr>        
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskComplexity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaskTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArchivedTask.IdTaskCategory)
-            </td>
-            <td>
-                @Html.ActionLink("Подробнее", "ArchivedTaskDetails", new { taskId=item.TaskId })
-            </td>
-        </tr>
-    }
-
+        @foreach (var item in Model) 
+        {
+            <tr>        
+                <td>@Html.DisplayFor(modelItem => item.TaskComplexity)</td>
+                <td>@Html.DisplayFor(modelItem => item.TaskTitle)</td>
+                <td>@Html.DisplayFor(modelItem => item.ArchivedTask.IdTaskCategory)</td>
+                <td>@Html.ActionLink("Подробнее", "ArchivedTaskDetails", new { taskId=item.TaskId })</td>
+            </tr>
+        }
     </table>
-
 }
 else
 {<p>Архив задач пуст.</p>}

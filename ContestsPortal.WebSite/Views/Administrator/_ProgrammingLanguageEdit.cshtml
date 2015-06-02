@@ -1,17 +1,5 @@
 ﻿@model ContestsPortal.WebSite.ViewModels.Administrator.ProgrammingLanguageViewModel
 
-@section styles {
-    <link rel="stylesheet" href="@Url.Content("~/content/styles/validation.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/content/themes/base/all.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/content/styles/forms.css")" />
-}
-@section scripts
-{   
-    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-}
-
 @using (Html.BeginForm("EditLanguage", "Administrator", FormMethod.Post, new {id="language-edit-form"}))  
 {
     @Html.AntiForgeryToken()
@@ -26,7 +14,6 @@
 			    @Html.LabelFor(model => model.LanguageName, new {htmlAttributes = new {@class = "col-sm-3 control-label"}})
 			    <div class="col-sm-10">
                      @Html.EditorFor(model => model.LanguageName, new {htmlAttributes = new {@class = "form-control"}})
-                    @Html.ValidationMessageFor(model => model.LanguageNameIsRequired)
 			    </div>
 		    </div>        
 
